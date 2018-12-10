@@ -1,9 +1,6 @@
-// http://www.red3d.com/cwr/boids/
-// Craig Reynolds algorithm description
-
-var boids = new Array(AMOUNT_AGENTS);
-console.log('boids');
+const boids = new Array(AMOUNT_AGENTS);
 var agents = new Array(AMOUNT_AGENTS);
+
 // Promień sąsiedztwa
 var neighbourRadius = 50.0;
 // Kąt obserwacji
@@ -21,8 +18,8 @@ var weightPerturbation = 0.1;
 // Prędkość maksymalna
 var maxValocity = 4.0;
 
-const width = 600;
-const height = 400;
+const width = GROUND_WIDTH;
+const height = GROUND_HEIGHT;
 
 //calculate new speed and direction
 function modify_speed_and_direction() {
@@ -129,7 +126,7 @@ const setBoidsPosition = (boids) => {
 }
 
 const init = () => {
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < boids.length; i++) {
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);
 		boids[i].y = Math.floor(Math.random() * height);

@@ -31,20 +31,8 @@
 <body>
     <canvas id="renderCanvas"></canvas>
 </body>
+<script src="./js/constants.js"></script>
 <script>
-    console.log('index');
-    // agent amount
-    const AMOUNT_AGENTS = 20;
-    // ground params
-    const GROUND_WIDTH = 600;
-    const GROUND_HEIGHT = 400;
-    const INIT_POS_X = 300;
-    const INIT_POS_Z = 200;
-    // camera params
-    const CAMERA_ANGLE = 1.57;
-    const CAMERA_ZOOM = 500;
-    const CAMERA_POS_X = 300;
-    const CAMERA_POS_Y = 200;
     window.addEventListener('DOMContentLoaded', function () {
 
         const canvas = document.getElementById('renderCanvas');
@@ -53,7 +41,7 @@
         var createScene = function () {
             const scene = new BABYLON.Scene(engine);
             createCamera(scene, canvas, CAMERA_ANGLE, CAMERA_ZOOM, CAMERA_POS_X, CAMERA_POS_Y);
-            setLights(scene);
+            createLights(scene);
             createGround(scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z);
             agents = createAgentMeshes(scene);
             return scene;
@@ -68,7 +56,6 @@
         });
     });
 </script>
-<script src="./js/index.js"></script>
 <script src="./js/boids.js"></script>
 <script src="./js/sceneSetup.js"></script>
 <script src="./js/cameraSetup.js"></script>

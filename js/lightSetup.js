@@ -1,4 +1,4 @@
-const setLights = (scene) => {
+const createLights = (scene) => {
     const light1 = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(0, -1, 1),
         scene);
     const light2 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
