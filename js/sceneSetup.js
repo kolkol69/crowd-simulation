@@ -1,5 +1,5 @@
 const createAgentMeshes = (scene) => {
-    const agents = new Array(20)
+    const agents = new Array(AMOUNT_AGENTS)
     for (let i = 0; i < agents.length; i++) {
         agents[i] = BABYLON.MeshBuilder.CreateBox("", {
             height: 10,

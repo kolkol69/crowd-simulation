@@ -1,5 +1,5 @@
 // agent amount
-const AMOUNT_AGENTS = 20;
+const AMOUNT_AGENTS = 30;
 // ground params
 const GROUND_WIDTH = 600;
 const GROUND_HEIGHT = 400;

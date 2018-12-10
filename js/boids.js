@@ -1,4 +1,4 @@
-const boids = new Array(AMOUNT_AGENTS);
+var boids = new Array(AMOUNT_AGENTS);
 var agents = new Array(AMOUNT_AGENTS);
 
 // Promień sąsiedztwa
@@ -26,12 +26,12 @@ function modify_speed_and_direction() {
 	var dist = 0.0;
 	var deg = 0.0;
 
-	for (i = 0; i < boids.length; i++) {
+	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		boids[i].mean_vx = boids[i].vx;
 		boids[i].mean_vy = boids[i].vy;
 		boids[i].mean_d = 0;
 		boids[i].num = 1;
-		for (j = 0; j < boids.length; j++) {
+		for (j = 0; j < AMOUNT_AGENTS; j++) {
 			if (j == i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
@@ -49,7 +49,7 @@ function modify_speed_and_direction() {
 		}
 	}
 
-	for (i = 0; i < boids.length; i++) {
+	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		//adjust speed to neighbours speed
 		boids[i].vx += (weightNeighbourDistance * ((boids[i].mean_vx / boids[i].num) - boids[i].vx));
 		boids[i].vy += (weightNeighbourDistance * ((boids[i].mean_vy / boids[i].num) - boids[i].vy));
@@ -59,7 +59,7 @@ function modify_speed_and_direction() {
 		boids[i].vy += (weightPerturbation * ((Math.random() - 0.5) * maxValocity));
 
 		if (boids[i].num > 1) boids[i].mean_d /= (boids[i].num - 1);
-		for (j = 0; j < boids.length; j++) {
+		for (j = 0; j < AMOUNT_AGENTS; j++) {
 			if (j == i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
@@ -93,7 +93,7 @@ function move_and_display() {
 	//first modify speed and direction
 	modify_speed_and_direction();
 
-	for (i = 0; i < boids.length; i++) {
+	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		//move boid
 		boids[i].x += boids[i].vx;
 		boids[i].y += boids[i].vy;
@@ -119,14 +119,14 @@ function move_and_display() {
 
 //initialize data
 const setBoidsPosition = (boids) => {
-	for (let i = 0; i < agents.length; i++) {
+	for (let i = 0; i < AMOUNT_AGENTS; i++) {
 		agents[i].position.x = boids[i].x;
 		agents[i].position.z = boids[i].y;
 	}
 }
 
 const init = () => {
-	for (i = 0; i < boids.length; i++) {
+	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);
 		boids[i].y = Math.floor(Math.random() * height);
