@@ -10,11 +10,7 @@
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <!-- Link to pep.js to ensure pointer events work consistently in all browsers -->
     <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
-    <script type="text/javascript">
-        function update_params() {
-            console.log('document.params: ', document.params.points.value);
-        };
-    </script>
+    
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
     <style>
         html,
@@ -50,6 +46,7 @@
     onRangeChange();
 </script>
 <script>
+    var scene;
     window.addEventListener('DOMContentLoaded', function () {
 
         const canvas = document.getElementById('renderCanvas');
@@ -64,7 +61,7 @@
 
             return scene;
         };
-        var scene = createScene();
+        scene = createScene();
         start();
         engine.runRenderLoop(function () {
             scene.render();
@@ -73,6 +70,13 @@
             engine.resize();
         });
     });
+</script>
+<script type="text/javascript">
+    function update_params() {
+        console.log('document.params: ', document.params.points.value);
+        AMOUNT_AGENTS = document.params.points.value;
+        scene.render();
+    };
 </script>
 <script src="./js/boids.js"></script>
 <script src="./js/sceneSetup.js"></script>
