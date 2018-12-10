@@ -46,7 +46,7 @@
                     <div id='agents-amount-div'></div>
                 </div>
                 <input id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
-                    max="100" value="100">
+                    max="150" value="150">
                 <div class="setting-name">
                     <div>Neighbour Radius:&nbsp;</div>
                     <div id='neighbour-radius-div'></div>
@@ -97,7 +97,8 @@
                     max="10" value="2">
             </div>
 
-            <input type="button" value="Update" onClick="update_params();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(222, 224, 103, 0.619); ">
+            <input type="button" value="Update" onClick="update_scene();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(161, 224, 103, 0.726); ">
+            <input type="button" value="Repaint" onClick="repaint_scene();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(224, 103, 103, 0.726); ">
         </form>
     </div>
 </body>
@@ -160,11 +161,9 @@
 </script>
 <script>
     var scene;
+    const canvas = document.getElementById('renderCanvas');
+    const engine = new BABYLON.Engine(canvas, true);
     window.addEventListener('DOMContentLoaded', function () {
-
-        const canvas = document.getElementById('renderCanvas');
-        const engine = new BABYLON.Engine(canvas, true);
-
         var createScene = function () {
             const scene = new BABYLON.Scene(engine);
             createCamera(scene, canvas, CAMERA_ANGLE, CAMERA_ZOOM, CAMERA_POS_X, CAMERA_POS_Y);
@@ -183,6 +182,10 @@
             engine.resize();
         });
     });
+    function update_scene(){
+        if(agents.length < document.params.agentsAmount.value) return;
+        update_params();
+    }
 
     function update_params() {
         AMOUNT_AGENTS = document.params.agentsAmount.value;
@@ -194,7 +197,19 @@
         weightMinimalDistance = document.params.weightMinimalDistance.value;
         weightPerturbation = document.params.weightPerturbation.value;
         maxVelocity = document.params.maxVelocity.value;
-        scene.render();
+    };
+    function repaint_scene() {
+        update_params();
+        removeAgentMeshes();
+        var createScene = function () {
+            const scene = new BABYLON.Scene(engine);
+            createCamera(scene, canvas, CAMERA_ANGLE, CAMERA_ZOOM, CAMERA_POS_X, CAMERA_POS_Y);
+            createLights(scene);
+            createGround(scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z);
+            init(scene);
+            return scene;
+        };
+        scene = createScene();
     };
 </script>
 <script src="./js/boids.js"></script>

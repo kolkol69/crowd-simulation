@@ -1,5 +1,5 @@
-const boids = new Array(AMOUNT_AGENTS);
-let agents = new Array(AMOUNT_AGENTS);
+var boids;
+var agents = new Array(AMOUNT_AGENTS);
 
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
@@ -76,7 +76,7 @@ function move_and_display() {
 	//first modify speed and direction
 	modify_speed_and_direction();
 
-	for (i = 0; i < AMOUNT_AGENTS; i++) {
+	for (i = 0; i < agents.length; i++) {
 		//move boid
 		boids[i].x += boids[i].vx;
 		boids[i].y += boids[i].vy;
@@ -102,13 +102,29 @@ function move_and_display() {
 
 //initialize data
 const setBoidsPosition = (boids) => {
+	if (AMOUNT_AGENTS > agents.length){
+		createMoreMeshes(agents);
+	}
 	for (let i = 0; i < AMOUNT_AGENTS; i++) {
 		agents[i].position.x = boids[i].x;
 		agents[i].position.z = boids[i].y;
 	}
 }
 
-const init = () => {
+function createMoreMeshes (agents) {
+	for (let i = agents.length-1; i < AMOUNT_AGENTS - 1; i++) {
+		agents.push(BABYLON.MeshBuilder.CreateBox("", {
+            height: 10,
+            width: 3,
+            depth: 3
+        }, scene));
+        agents[i].position.y = 5;
+	}
+}
+
+const init = (scene) => {
+	agents = createAgentMeshes(scene);
+	boids = new Array(AMOUNT_AGENTS);
 	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);

@@ -21,7 +21,7 @@ const CAMERA_POS_Y = 200;
 #######################
 */
 // agent amount
-var AMOUNT_AGENTS = 100;
+var AMOUNT_AGENTS = 150;
 // Promień sąsiedztwa
 var neighbourRadius = 50.0;
 // Kąt obserwacji

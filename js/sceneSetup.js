@@ -10,3 +10,9 @@ const createAgentMeshes = (scene) => {
     }
     return agents;
 }
+
+const removeAgentMeshes = () => {
+    for (let i = 0; i < agents.length; i++) {
+        agents[i].dispose();
+    }
+}
