@@ -40,62 +40,64 @@
     </canvas>
     <div style='color: white; position: absolute; top: 1%; left: 85%; z-index: 100;'>
         <form name="params" action="" method="GET">
-            <div class="setting-name">
-                <div>Agents:&nbsp;</div>
-                <div id='agents-amount-div'></div>
+            <div>
+                <div class="setting-name">
+                    <div>Agents:&nbsp;</div>
+                    <div id='agents-amount-div'></div>
+                </div>
+                <input id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
+                    max="100" value="100">
+                <div class="setting-name">
+                    <div>Neighbour Radius:&nbsp;</div>
+                    <div id='neighbour-radius-div'></div>
+                </div>
+                <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
+                    min="1" max="100" value="50">
+                <div class="setting-name">
+                    <div>Observable Degree:&nbsp;</div>
+                    <div id='observe-degree-div'></div>
+                </div>
+                <input id='observe-degree-input' onchange="onObserveDegreeChange()" type="range" name="observeDegree"
+                    min="30" max="270" value="120">
+                <div class="setting-name">
+                    <div>Minimal Distance:&nbsp;</div>
+                    <div id='min-distance-div'></div>
+                </div>
+                <input id='min-distance-input' onchange="onMinDistanceChange()" type="range" name="minDistance" min="1"
+                    max="50" value="20">
+                <div class="setting-name">
+                    <div>Weight Neighbour Velocity:&nbsp;</div>
+                    <div id='weight-neighbour-velocity-div'></div>
+                </div>
+                <input id='weight-neighbour-velocity-input' onchange="onWeightNeighbourVelocityChange()" type="range"
+                    name="weightNeighbourVelocity" min="0.05" max="1" value="0.1" step="0.05">
+                <div class="setting-name">
+                    <div>Weight Neighbour Distance:&nbsp;</div>
+                    <div id='weight-neighbour-distance-div'></div>
+                </div>
+                <input id='weight-neighbour-distance-input' onchange="onWeightNeighbourDistanceChange()" type="range"
+                    name="weightNeighbourDistance" min="0.05" max="1" value="0.15" step="0.05">
+                <div class="setting-name">
+                    <div>Weight Minimal Distance:&nbsp;</div>
+                    <div id='weight-minimal-distance-div'></div>
+                </div>
+                <input id='weight-minimal-distance-input' onchange="onWeightMinimalDistanceChange()" type="range" name="weightMinimalDistance"
+                    min="0.05" max="1" value="0.15" step="0.05">
+                <div class="setting-name">
+                    <div>Weight Perturbation:&nbsp;</div>
+                    <div id='weight-perturbation-div'></div>
+                </div>
+                <input id='weight-perturbation-input' onchange="onWieghtPerturbationChange()" type="range" name="weightPerturbation"
+                    min="0.05" max="1" value="0.1" step="0.05">
+                <div class="setting-name">
+                    <div>Max Velocity:&nbsp;</div>
+                    <div id='max-velocity-div'></div>
+                </div>
+                <input id='max-velocity-input' onchange="onMaxVelocityChange()" type="range" name="maxVelocity" min="1"
+                    max="10" value="4">
             </div>
-            <input id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1" max="100"
-                value="100">
-            <div class="setting-name">
-                <div>Neighbour Radius:&nbsp;</div>
-                <div id='neighbour-radius-div'></div>
-            </div>
-            <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                min="1" max="100" value="50">
-            <div class="setting-name">
-                <div>Observable Degree:&nbsp;</div>
-                <div id='observe-degree-div'></div>
-            </div>
-            <input id='observe-degree-input' onchange="onObserveDegreeChange()" type="range" name="observeDegree" min="30"
-                max="270" value="120">
-            <div class="setting-name">
-                <div>Minimal Distance:&nbsp;</div>
-                <div id='min-distance-div'></div>
-            </div>
-            <input id='min-distance-input' onchange="onMinDistanceChange()" type="range" name="minDistance" min="10"
-                max="100" value="20">
-            <div class="setting-name">
-                <div>Weight Neighbour Velocity:&nbsp;</div>
-                <div id='weight-neighbour-velocity-div'></div>
-            </div>
-            <input id='weight-neighbour-velocity-input' onchange="onWeightNeighbourVelocityChange()" type="range" name="weightNeighbourVelocity"
-                min="0.05" max="1" value="0.1" step="0.05">
-            <div class="setting-name">
-                <div>Weight Neighbour Distance:&nbsp;</div>
-                <div id='weight-neighbour-distance-div'></div>
-            </div>
-            <input id='weight-neighbour-distance-input' onchange="onWeightNeighbourDistanceChange()" type="range" name="weightNeighbourDistance"
-                min="0.05" max="1" value="0.15" step="0.05">
-            <div class="setting-name">
-                <div>Weight Minimal Distance:&nbsp;</div>
-                <div id='weight-minimal-distance-div'></div>
-            </div>
-            <input id='weight-minimal-distance-input' onchange="onWeightMinimalDistanceChange()" type="range" name="weightMinimalDistance"
-                min="0.05" max="1" value="0.15" step="0.05">
-            <div class="setting-name">
-                <div>Weight Perturbation:&nbsp;</div>
-                <div id='weight-perturbation-div'></div>
-            </div>
-            <input id='weight-perturbation-input' onchange="onWieghtPerturbationChange()" type="range" name="weightPerturbation"
-                min="0.05" max="1" value="0.1" step="0.05">
-            <div class="setting-name">
-                <div>Max Velocity:&nbsp;</div>
-                <div id='max-velocity-div'></div>
-            </div>
-            <input id='max-velocity-input' onchange="onMaxVelocityChange()" type="range" name="maxVelocity" min="1" max="10"
-                value="4">
 
-            <input type="button" value="Update" onClick="update_params();" style="width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(222, 224, 103, 0.619); ">
+            <input type="button" value="Update" onClick="update_params();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(222, 224, 103, 0.619); ">
         </form>
     </div>
 </body>
@@ -185,6 +187,14 @@
 <script type="text/javascript">
     function update_params() {
         AMOUNT_AGENTS = document.params.agentsAmount.value;
+        neighbourRadius = document.params.neighbourRadius.value;
+        observeDegree = document.params.observeDegree.value;
+        minDistance = document.params.minDistance.value;
+        weightNeighbourVelocity = document.params.weightNeighbourVelocity.value;
+        weightNeighbourDistance = document.params.weightNeighbourDistance.value;
+        weightMinimalDistance = document.params.weightMinimalDistance.value;
+        weightPerturbation = document.params.weightPerturbation.value;
+        maxVelocity = document.params.maxVelocity.value;
         scene.render();
     };
 </script>
