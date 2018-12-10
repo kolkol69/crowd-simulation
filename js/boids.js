@@ -34,12 +34,12 @@ function modify_speed_and_direction() {
 
 	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		//adjust speed to neighbours speed
-		boids[i].vx += (weightNeighbourDistance * ((boids[i].mean_vx / boids[i].num) - boids[i].vx));
-		boids[i].vy += (weightNeighbourDistance * ((boids[i].mean_vy / boids[i].num) - boids[i].vy));
+		boids[i].vx += (weightNeighbourVelocity * ((boids[i].mean_vx / boids[i].num) - boids[i].vx));
+		boids[i].vy += (weightNeighbourVelocity * ((boids[i].mean_vy / boids[i].num) - boids[i].vy));
 
 		//perturbation
-		boids[i].vx += (weightPerturbation * ((Math.random() - 0.5) * maxValocity));
-		boids[i].vy += (weightPerturbation * ((Math.random() - 0.5) * maxValocity));
+		boids[i].vx += (weightPerturbation * ((Math.random() - 0.5) * maxVelocity));
+		boids[i].vy += (weightPerturbation * ((Math.random() - 0.5) * maxVelocity));
 
 		if (boids[i].num > 1) boids[i].mean_d /= (boids[i].num - 1);
 		for (j = 0; j < AMOUNT_AGENTS; j++) {
@@ -64,7 +64,7 @@ function modify_speed_and_direction() {
 		}
 
 		//check speed is not too high
-		if (Math.sqrt(boids[i].vx * boids[i].vx + boids[i].vy * boids[i].vy) > maxValocity) {
+		if (Math.sqrt(boids[i].vx * boids[i].vx + boids[i].vy * boids[i].vy) > maxVelocity) {
 			boids[i].vx *= 0.75;
 			boids[i].vy *= 0.75;
 		}
