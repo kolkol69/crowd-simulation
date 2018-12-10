@@ -28,4 +28,4 @@ var weightMinimalDistance = 0.15;
 // Waga zakłóceń
 var weightPerturbation = 0.1;
 // Prędkość maksymalna
-var maxVelocity = 4.0;
+var maxVelocity = 2.0;
