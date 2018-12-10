@@ -1,23 +1,6 @@
 var boids = new Array(AMOUNT_AGENTS);
 var agents = new Array(AMOUNT_AGENTS);
 
-// Promień sąsiedztwa
-var neighbourRadius = 50.0;
-// Kąt obserwacji
-var observDegree = 120.0;
-// Odleglosc minimalna
-var minDistance = 20.0;
-// Waga prędkości sąsiadów
-var weightNeighbourDistance = 0.1;
-// Waga odległości sąsiadów
-var weightNeighbourDistance = 0.15;
-// Waga odległości minimalnej
-var weightMinimalDistance = 0.15;
-// Waga zakłóceń
-var weightPerturbation = 0.1;
-// Prędkość maksymalna
-var maxValocity = 4.0;
-
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
 
