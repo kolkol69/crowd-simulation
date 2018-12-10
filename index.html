@@ -10,6 +10,12 @@
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <!-- Link to pep.js to ensure pointer events work consistently in all browsers -->
     <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
+    <script type="text/javascript">
+        function update_params() {
+            console.log('document.params: ', document.params.points.value);
+        };
+    </script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
     <style>
         html,
         body {
@@ -29,9 +35,20 @@
 </head>
 
 <body>
-    <canvas id="renderCanvas"></canvas>
+    <canvas id="renderCanvas">
+    </canvas>
+    <div style='color: white; position: absolute; top: 0%; left: 80%; z-index: 100;'>
+        <form name="params" action="" method="GET">
+            Agents: <div id='agents-amount'></div><input onChange="onRangeChange()" type="range" name="points" min="1" max="100">
+            <input type="button" value="Aktualizuj"  onClick="update_params();" style="width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(222, 224, 103, 0.619)">
+        </form>
+    </div>
 </body>
 <script src="./js/constants.js"></script>
+<script>
+    function onRangeChange(){document.getElementById('agents-amount').innerHTML = document.params.points.value};
+    onRangeChange();
+</script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
 
@@ -44,6 +61,7 @@
             createLights(scene);
             createGround(scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z);
             agents = createAgentMeshes(scene);
+
             return scene;
         };
         var scene = createScene();
