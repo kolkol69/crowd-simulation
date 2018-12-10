@@ -1,13 +1,13 @@
-var boids = new Array(AMOUNT_AGENTS);
-var agents = new Array(AMOUNT_AGENTS);
+const boids = new Array(AMOUNT_AGENTS);
+let agents = new Array(AMOUNT_AGENTS);
 
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
 
 //calculate new speed and direction
 function modify_speed_and_direction() {
-	var dist = 0.0;
-	var deg = 0.0;
+	let dist = 0.0;
+	let deg = 0.0;
 
 	for (i = 0; i < AMOUNT_AGENTS; i++) {
 		boids[i].mean_vx = boids[i].vx;
