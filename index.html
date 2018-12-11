@@ -160,7 +160,7 @@
     onMaxVelocityChange();
 </script>
 <script>
-    var scene;
+    let scene;
     const canvas = document.getElementById('renderCanvas');
     const engine = new BABYLON.Engine(canvas, true);
     window.addEventListener('DOMContentLoaded', function () {
@@ -198,6 +198,7 @@
         weightPerturbation = document.params.weightPerturbation.value;
         maxVelocity = document.params.maxVelocity.value;
     };
+
     function repaint_scene() {
         update_params();
         removeAgentMeshes();
@@ -213,9 +214,9 @@
     };
 </script>
 <script src="./js/boids.js"></script>
-<script src="./js/sceneSetup.js"></script>
-<script src="./js/cameraSetup.js"></script>
-<script src="./js/lightSetup.js"></script>
-<script src="./js/groundSetup.js"></script>
+<script src="./js/setup/sceneSetup.js"></script>
+<script src="./js/setup/cameraSetup.js"></script>
+<script src="./js/setup/lightSetup.js"></script>
+<script src="./js/setup/groundSetup.js"></script>
 
 </html>

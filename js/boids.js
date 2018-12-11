@@ -53,6 +53,12 @@ function modify_speed_and_direction() {
 			deg = Math.abs((180 * deg) / Math.PI);
 			if (dist < neighbourRadius && deg < observDegree) {
 				if (Math.abs(boids[j].x - boids[i].x) > minDistance) {
+					/**
+					 * boids[i].vx += 0.005 * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
+					 * czym mensza wartosc weightNeighbourDistance (0.005) tym bilshe grupujutsja agenty
+					 * ale i tym bilsh stabilno wygladaje systema
+					 * agenty ne "diorgajutsja" jaksho probujut' wyrwatysja z grupy
+					*/
 					boids[i].vx += (weightNeighbourDistance / boids[i].num) * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
 					boids[i].vy += (weightNeighbourDistance / boids[i].num) * (((boids[j].y - boids[i].y) * (dist - boids[i].mean_d)) / dist);
 				} else //neighbours are too close
@@ -96,11 +102,10 @@ function move_and_display() {
 	}
 
 	setBoidsPosition(boids);
-
+	// if(!flag){console.log('boids',...boids); flag = !flag}
 	window.requestAnimationFrame(move_and_display);
 }
-
-//initialize data
+// var flag = false;
 const setBoidsPosition = (boids) => {
 	if (AMOUNT_AGENTS > agents.length){
 		createMoreMeshes(agents);
@@ -114,7 +119,7 @@ const setBoidsPosition = (boids) => {
 function createMoreMeshes (agents) {
 	for (let i = agents.length-1; i < AMOUNT_AGENTS - 1; i++) {
 		agents.push(BABYLON.MeshBuilder.CreateBox("", {
-            height: 10,
+			height: 10,
             width: 3,
             depth: 3
         }, scene));
@@ -122,6 +127,7 @@ function createMoreMeshes (agents) {
 	}
 }
 
+//initialize data
 const init = (scene) => {
 	agents = createAgentMeshes(scene);
 	boids = new Array(AMOUNT_AGENTS);
