@@ -1,4 +1,4 @@
-const createGround = (scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z) => {
+const createGround = (scene) => {
     const ground = BABYLON.MeshBuilder.CreateGround("ground", {
         width: GROUND_WIDTH,
         height: GROUND_HEIGHT,

@@ -1,3 +1,11 @@
+/* 
+########################
+## AGENTS' DIMENSIONS ##
+########################
+*/
+const HEIGHT = 10 ;
+const WIDTH = 3;
+const DEPTH = 3;
 
 /* 
 ####################
@@ -7,8 +15,8 @@
 // ground params
 const GROUND_WIDTH = 600;
 const GROUND_HEIGHT = 400;
-const INIT_POS_X = 300;
-const INIT_POS_Z = 200;
+const INIT_POS_X = GROUND_WIDTH / 2;
+const INIT_POS_Z = GROUND_HEIGHT / 2;
 // camera params
 const CAMERA_ANGLE = 1.57;
 const CAMERA_ZOOM = 500;
@@ -21,20 +29,20 @@ const CAMERA_POS_Y = 200;
 #######################
 */
 // agent amount
-var AMOUNT_AGENTS = 100;
+let agentsAmount = 100;
 // Promień sąsiedztwa
-var neighbourRadius = 50.0;
+let neighbourRadius = 50.0;
 // Kąt obserwacji
-var observDegree = 120.0;
+let observDegree = 120.0;
 // Odleglosc minimalna
-var minDistance = 20.0;
+let minDistance = 20.0;
 // Waga prędkości sąsiadów
-var weightNeighbourVelocity = 0.1;
+let weightNeighbourVelocity = 0.1;
 // Waga odległości sąsiadów
-var weightNeighbourDistance = 0.15;
+let weightNeighbourDistance = 0.15;
 // Waga odległości minimalnej
-var weightMinimalDistance = 0.15;
+let weightMinimalDistance = 0.15;
 // Waga zakłóceń
-var weightPerturbation = 0.1;
+let weightPerturbation = 0.1;
 // Prędkość maksymalna
-var maxVelocity = 2.0;
+let maxVelocity = 2.0;

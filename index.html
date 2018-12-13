@@ -12,33 +12,14 @@
     <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
 
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-    <style>
-        html,
-        body {
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
 
-        #renderCanvas {
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-        }
-        .setting-name {
-            display: flex; 
-            flex-direction: row;
-            padding-top: 10px
-        }
-    </style>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
     <canvas id="renderCanvas">
     </canvas>
-    <div style='color: white; position: absolute; top: 1%; left: 85%; z-index: 100;'>
+    <div class="side-panel">
         <form name="params" action="" method="GET">
             <div>
                 <div class="setting-name">
@@ -87,7 +68,7 @@
                     <div>Weight Perturbation:&nbsp;</div>
                     <div id='weight-perturbation-div'></div>
                 </div>
-                <input id='weight-perturbation-input' onchange="onWieghtPerturbationChange()" type="range" name="weightPerturbation"
+                <input id='weight-perturbation-input' onchange="onWeightPerturbationChange()" type="range" name="weightPerturbation"
                     min="0.05" max="1" value="0.1" step="0.05">
                 <div class="setting-name">
                     <div>Max Velocity:&nbsp;</div>
@@ -97,8 +78,8 @@
                     max="10" value="2">
             </div>
 
-            <input type="button" value="Update" onClick="update_scene();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(161, 224, 103, 0.726); ">
-            <input type="button" value="Repaint" onClick="repaint_scene();" style="margin-top: 10px; width: 70px; height: 20px; border: none; border-radius: 2px; background-color: rgba(224, 103, 103, 0.726); ">
+            <input class="buttons update-button" type="button" value="Update" onClick="update_scene();">
+            <input class="buttons repaint-button" type="button" value="Repaint" onClick="repaint_scene();">
         </form>
     </div>
 </body>
@@ -142,33 +123,41 @@
         weightMinimalDistanceDiv.innerHTML = document.params.weightMinimalDistance.value;
     };
 
-    function onWieghtPerturbationChange() {
+    function onWeightPerturbationChange() {
         weightPerturbationDiv.innerHTML = document.params.weightPerturbation.value;
     };
 
     function onMaxVelocityChange() {
         maxVelocityDiv.innerHTML = document.params.maxVelocity.value;
     };
-    onAgentsChange();
-    onNeighbourRadiusChange();
-    onObserveDegreeChange();
-    onMinDistanceChange();
-    onWeightNeighbourVelocityChange();
-    onWeightNeighbourDistanceChange();
-    onWeightMinimalDistanceChange();
-    onWieghtPerturbationChange();
-    onMaxVelocityChange();
+    /*
+        init function call 
+        to show start data in html 
+    */
+    onAgentsChange(agentsAmountDiv);
+    onNeighbourRadiusChange(neighbourRadiusDiv);
+    onObserveDegreeChange(observeDegreeDiv);
+    onMinDistanceChange(minDistanceDiv);
+    onWeightNeighbourVelocityChange(weightNeighbourVelocityDiv);
+    onWeightNeighbourDistanceChange(weightNeighbourDistanceDiv);
+    onWeightMinimalDistanceChange(weightMinimalDistanceDiv);
+    onWeightPerturbationChange(weightPerturbationDiv);
+    onMaxVelocityChange(maxVelocityDiv);
 </script>
 <script>
+    /*  ##############################
+        ## BABYLON SCENE RENDERING  ##
+        ##############################
+    */
     let scene;
     const canvas = document.getElementById('renderCanvas');
     const engine = new BABYLON.Engine(canvas, true);
     window.addEventListener('DOMContentLoaded', function () {
         var createScene = function () {
             const scene = new BABYLON.Scene(engine);
-            createCamera(scene, canvas, CAMERA_ANGLE, CAMERA_ZOOM, CAMERA_POS_X, CAMERA_POS_Y);
+            createCamera(scene, canvas);
             createLights(scene);
-            createGround(scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z);
+            createGround(scene);
             agents = createAgentMeshes(scene);
 
             return scene;
@@ -182,41 +171,14 @@
             engine.resize();
         });
     });
-    function update_scene(){
-        if(agents.length < document.params.agentsAmount.value) return;
-        update_params();
-    }
-
-    function update_params() {
-        AMOUNT_AGENTS = document.params.agentsAmount.value;
-        neighbourRadius = document.params.neighbourRadius.value;
-        observeDegree = document.params.observeDegree.value;
-        minDistance = document.params.minDistance.value;
-        weightNeighbourVelocity = document.params.weightNeighbourVelocity.value;
-        weightNeighbourDistance = document.params.weightNeighbourDistance.value;
-        weightMinimalDistance = document.params.weightMinimalDistance.value;
-        weightPerturbation = document.params.weightPerturbation.value;
-        maxVelocity = document.params.maxVelocity.value;
-    };
-
-    function repaint_scene() {
-        update_params();
-        removeAgentMeshes();
-        var createScene = function () {
-            const scene = new BABYLON.Scene(engine);
-            createCamera(scene, canvas, CAMERA_ANGLE, CAMERA_ZOOM, CAMERA_POS_X, CAMERA_POS_Y);
-            createLights(scene);
-            createGround(scene, GROUND_WIDTH, GROUND_HEIGHT, INIT_POS_X, INIT_POS_Z);
-            init(scene);
-            return scene;
-        };
-        scene = createScene();
-    };
 </script>
 <script src="./js/boids.js"></script>
 <script src="./js/setup/sceneSetup.js"></script>
 <script src="./js/setup/cameraSetup.js"></script>
 <script src="./js/setup/lightSetup.js"></script>
 <script src="./js/setup/groundSetup.js"></script>
+<script src="./js/sceneUpdate/repaintScene.js"></script>
+<script src="./js/sceneUpdate/updateParams.js"></script>
+<script src="./js/sceneUpdate/updateScene.js"></script>
 
 </html>
