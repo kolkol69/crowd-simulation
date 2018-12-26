@@ -27,9 +27,3 @@ So you dont need to place them manually for now, and they are randomly allocated
 7. Weight Minimal Distance - is used to define agent behavior if two (or more) agents are too close to each other.
 8. Weight Perturbation - perturbation is added to make Agents' moving around look more _chaotic_. If an agent is in a group with other agents, this value defines how likely he will exit it. The more the values is, the more likely he will try to escape from the froup.
 9. Max Velocity - defines agents' maximum possible speed.
-
-
-boids[i].vx += 0.005 * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
-* czym mensza wartosc weightNeighbourDistance (0.005) tym bilshe grupujutsja agenty
-* ale i tym bilsh stabilno wygladaje systema
-* agenty ne "diorgajutsja" jaksho probujut' wyrwatysja z grupy
