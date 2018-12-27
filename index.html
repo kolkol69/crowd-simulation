@@ -33,7 +33,7 @@
                     <div id='neighbour-radius-div'></div>
                 </div>
                 <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                    min="1" max="100" value="50">
+                    min="1" max="100" value="20">
                 <div class="setting-name">
                     <div>Observable Degree:&nbsp;</div>
                     <div id='observe-degree-div'></div>
@@ -45,7 +45,7 @@
                     <div id='min-distance-div'></div>
                 </div>
                 <input id='min-distance-input' onchange="onMinDistanceChange()" type="range" name="minDistance" min="1"
-                    max="50" value="20">
+                    max="50" value="11">
                 <div class="setting-name">
                     <div>Weight Neighbour Velocity:&nbsp;</div>
                     <div id='weight-neighbour-velocity-div'></div>
@@ -74,8 +74,8 @@
                     <div>Max Velocity:&nbsp;</div>
                     <div id='max-velocity-div'></div>
                 </div>
-                <input id='max-velocity-input' onchange="onMaxVelocityChange()" type="range" name="maxVelocity" min="1"
-                    max="10" value="2">
+                <input id='max-velocity-input' onchange="onMaxVelocityChange()" type="range" name="maxVelocity" min="0.5"
+                    max="10" value="1" step="0.5">
             </div>
 
             <input class="buttons update-button" type="button" value="Update" onClick="update_scene();">

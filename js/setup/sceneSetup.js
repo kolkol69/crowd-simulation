@@ -6,7 +6,7 @@ const createAgentMeshes = (scene) => {
             width: WIDTH,
             depth: DEPTH
         }, scene);
-        agents[i].position.y = 5;
+        agents[i].position.y = HEIGHT/2;
     }
     return agents;
 }

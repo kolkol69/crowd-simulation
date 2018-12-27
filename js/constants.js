@@ -31,11 +31,11 @@ const CAMERA_POS_Y = 200;
 // agent amount
 let agentsAmount = 100;
 // Promień sąsiedztwa
-let neighbourRadius = 50.0;
+let neighbourRadius = 20.0;
 // Kąt obserwacji
 let observDegree = 120.0;
 // Odleglosc minimalna
-let minDistance = 20.0;
+let minDistance = 11.0;
 // Waga prędkości sąsiadów
 let weightNeighbourVelocity = 0.1;
 // Waga odległości sąsiadów
@@ -45,4 +45,4 @@ let weightMinimalDistance = 0.15;
 // Waga zakłóceń
 let weightPerturbation = 0.1;
 // Prędkość maksymalna
-let maxVelocity = 2.0;
+let maxVelocity = 1.0;
