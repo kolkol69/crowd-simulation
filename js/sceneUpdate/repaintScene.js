@@ -6,6 +6,7 @@ function repaint_scene() {
         createCamera(scene, canvas);
         createLights(scene);
         createGround(scene);
+        createTouristPlaces(scene);
         init(scene);
 
         return scene;

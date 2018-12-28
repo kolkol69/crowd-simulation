@@ -58,7 +58,7 @@ function modify_speed_and_direction() {
 					 * czym mensza wartosc weightNeighbourDistance (0.005) tym bilshe grupujutsja agenty
 					 * ale i tym bilsh stabilno wygladaje systema
 					 * agenty ne "diorgajutsja" jaksho probujut' wyrwatysja z grupy
-					*/
+					 */
 					boids[i].vx += (weightNeighbourDistance / boids[i].num) * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
 					boids[i].vy += (weightNeighbourDistance / boids[i].num) * (((boids[j].y - boids[i].y) * (dist - boids[i].mean_d)) / dist);
 				} else //neighbours are too close
@@ -83,6 +83,14 @@ function move_and_display() {
 	modify_speed_and_direction();
 
 	for (i = 0; i < agents.length; i++) {
+		const boid_next_pos_x = boids[i].x + boids[i].vx;
+		const boid_next_pos_y = boids[i].y + boids[i].vy;
+		// check if hitting the obstacles
+		if(isHittingObstacle(boid_next_pos_x, boid_next_pos_y)){
+			boids[i].vy = -boids[i].vy;
+			boids[i].vx = -boids[i].vx;
+		}
+
 		//move boid
 		boids[i].x += boids[i].vx;
 		boids[i].y += boids[i].vy;
@@ -104,8 +112,19 @@ function move_and_display() {
 	setBoidsPosition(boids);
 	window.requestAnimationFrame(move_and_display);
 }
+
+const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
+	for (let i = 0; i < OBSTACLE_POSITIONS.length; i++) {
+		if ((boid_next_pos_x >= OBSTACLE_POSITIONS[i].x - OBSTACLE_POSITIONS[i].width / 2 && boid_next_pos_x <= OBSTACLE_POSITIONS[i].x + OBSTACLE_POSITIONS[i].width / 2) &&
+			(boid_next_pos_y >= OBSTACLE_POSITIONS[i].y - OBSTACLE_POSITIONS[i].depth / 2 && boid_next_pos_y <= OBSTACLE_POSITIONS[i].y + OBSTACLE_POSITIONS[i].depth / 2)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 const setBoidsPosition = (boids) => {
-	if (agentsAmount > agents.length){
+	if (agentsAmount > agents.length) {
 		createMoreMeshes(agents);
 	}
 	for (let i = 0; i < agentsAmount; i++) {
@@ -114,14 +133,14 @@ const setBoidsPosition = (boids) => {
 	}
 }
 
-function createMoreMeshes (agents) {
-	for (let i = agents.length-1; i < agentsAmount - 1; i++) {
+function createMoreMeshes(agents) {
+	for (let i = agents.length - 1; i < agentsAmount - 1; i++) {
 		agents.push(BABYLON.MeshBuilder.CreateBox("", {
 			height: 10,
-            width: 3,
-            depth: 3
-        }, scene));
-        agents[i].position.y = 5;
+			width: 3,
+			depth: 3
+		}, scene));
+		agents[i].position.y = 5;
 	}
 }
 

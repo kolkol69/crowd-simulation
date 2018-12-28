@@ -33,7 +33,7 @@
                     <div id='neighbour-radius-div'></div>
                 </div>
                 <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                    min="1" max="100" value="20">
+                    min="1" max="100" value="11">
                 <div class="setting-name">
                     <div>Observable Degree:&nbsp;</div>
                     <div id='observe-degree-div'></div>
@@ -158,6 +158,7 @@
             createCamera(scene, canvas);
             createLights(scene);
             createGround(scene);
+            createTouristPlaces(scene);
             agents = createAgentMeshes(scene);
 
             return scene;
