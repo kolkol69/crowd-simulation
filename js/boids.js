@@ -138,13 +138,13 @@ const setBoidsTargets = (boids) => {
 	for (i = 0; i < agentsAmount; i++) {
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // there is 33.3% chance that agent will move towards defined target
 			// console.log(i % Math.floor(Math.random() * 2) + 2)
-			const diagonal = Math.sqrt(Math.pow((boids[i].x - OBSTACLE_POSITIONS[0].x), 2) + Math.pow((boids[i].y - OBSTACLE_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-			const xDirection = boids[i].x - OBSTACLE_POSITIONS[0].x > 0 ? -1 : 1;
-			const yDirection = boids[i].y - OBSTACLE_POSITIONS[0].y > 0 ? -1 : 1;
-			if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
+			const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
+			const xDirection = boids[i].x - TARGET_POSITIONS[0].x > 0 ? -1 : 1;
+			const yDirection = boids[i].y - TARGET_POSITIONS[0].y > 0 ? -1 : 1;
+			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
 				boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
 				boids[i].vy = yDirection * (Math.random() * speedToTarget);
-			}
+			// }
 		}
 	}
 }
