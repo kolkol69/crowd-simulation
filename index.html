@@ -76,6 +76,24 @@
                 </div>
                 <input id='max-velocity-input' onchange="onMaxVelocityChange()" type="range" name="maxVelocity" min="0.5"
                     max="10" value="1" step="0.5">
+                <div class="setting-name">
+                    <div>Speed to targets:&nbsp;</div>
+                    <div id='speed-to-target-div'></div>
+                </div>
+                <input id='speed-to-target-input' onchange="onSpeedToTarget()" type="range" name="speedToTarget" min="1"
+                    max="5" value="1" step="0.5">
+                <div class="setting-name">
+                    <div>Time to achive targets:&nbsp;</div>
+                    <div id='time-to-target-div'></div>
+                </div>
+                <input id='time-to-target-input' onchange="onTimeToTarget()" type="range" name="timeToTarget" min="1000"
+                    max="5000" value="3000" step="1000">
+                <div class="setting-name">
+                    <div>Chances to achive targets:&nbsp;</div>
+                    <div id='chance-to-target-div'></div>
+                </div>
+                <input id='chance-to-target-input' onchange="onChanceToTarget()" type="range" name="chanceToGetToTarget" min="1"
+                    max="10" value="3" step="1">
             </div>
 
             <input class="buttons update-button" type="button" value="Update" onClick="update_scene();">
@@ -94,6 +112,9 @@
     const weightMinimalDistanceDiv = document.getElementById('weight-minimal-distance-div');
     const weightPerturbationDiv = document.getElementById('weight-perturbation-div');
     const maxVelocityDiv = document.getElementById('max-velocity-div');
+    const speedToTargetDiv = document.getElementById('speed-to-target-div');
+    const timeToTargetDiv = document.getElementById('time-to-target-div');
+    const chanceToGetToTargetDiv = document.getElementById('chance-to-target-div');
 
     function onAgentsChange() {
         agentsAmountDiv.innerHTML = document.params.agentsAmount.value;
@@ -130,6 +151,18 @@
     function onMaxVelocityChange() {
         maxVelocityDiv.innerHTML = document.params.maxVelocity.value;
     };
+
+    function onSpeedToTarget(){
+        speedToTargetDiv.innerHTML = document.params.speedToTarget.value;
+    };
+
+    function onTimeToTarget(){
+        timeToTargetDiv.innerHTML = document.params.timeToTarget.value;
+    };
+
+    function onChanceToTarget(){
+        chanceToGetToTargetDiv.innerHTML = document.params.chanceToGetToTarget.value;
+    };
     /*
         init function call 
         to show start data in html 
@@ -143,6 +176,9 @@
     onWeightMinimalDistanceChange(weightMinimalDistanceDiv);
     onWeightPerturbationChange(weightPerturbationDiv);
     onMaxVelocityChange(maxVelocityDiv);
+    onSpeedToTarget(speedToTargetDiv);
+    onTimeToTarget(timeToTargetDiv);
+    onChanceToTarget(chanceToGetToTargetDiv);
 </script>
 <script>
     /*  ##############################

@@ -47,43 +47,50 @@ let weightMinimalDistance = 0.15;
 let weightPerturbation = 0.1;
 // Prędkość maksymalna
 let maxVelocity = 1.0;
-
+// defines how fast agents move towards the target
+let speedToTarget = 1.0;
+// defines how fast agents will get to the target
+let timeToTarget = 3000; // time in ms
+// defines how likely most of the agents will get to the target
+let chanceToGetToTarget = 3; // example: 100 / 3 ~~ 33.3%
 /* 
 ##########################
 ### OBSTACLE POSITIONS ###
 ##########################
 */
 
-const OBSTACLE_POSITIONS = [{
-        x: 310,
-        y: 200,
-        width: 20,
-        depth: 150,
-    }, {
-        x: 270,
-        y: 200,
-        width: 20,
-        depth: 150,
-    },
+const OBSTACLE_POSITIONS = [
+    // {
+    //         x: 310,
+    //         y: 200,
+    //         width: 20,
+    //         depth: 150,
+    //     }, {
+    //         x: 270,
+    //         y: 200,
+    //         width: 20,
+    //         depth: 150,
+    //     },
+    //     {
+    //         x: 150,
+    //         y: 70,
+    //         width: 100,
+    //         depth: 10,
+    //     }, {
+    //         x: 60,
+    //         y: 150,
+    //         width: 50,
+    //         depth: 100,
+    //     }, {
+    //         x: 290,
+    //         y: 300,
+    //         width: 50,
+    //         depth: 10,
+    //     }, 
     {
-        x: 150,
-        y: 70,
-        width: 100,
-        depth: 10,
-    }, {
-        x: 60,
-        y: 150,
-        width: 50,
-        depth: 100,
-    }, {
-        x: 290,
-        y: 300,
-        width: 50,
-        depth: 10,
-    }, {
-        x: 150,
-        y: 100,
-        width: 100,
+        x: 300,
+        y: 200,
+        width: 10,
         depth: 10,
     }
 ]

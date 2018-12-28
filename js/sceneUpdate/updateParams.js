@@ -8,4 +8,7 @@ function update_params() {
     weightMinimalDistance = document.params.weightMinimalDistance.value;
     weightPerturbation = document.params.weightPerturbation.value;
     maxVelocity = document.params.maxVelocity.value;
+    speedToTarget = document.params.speedToTarget.value;
+    timeToTarget = document.params.timeToTarget.value;
+    chanceToGetToTarget = document.params.chanceToGetToTarget.value;
 };
