@@ -4,6 +4,9 @@ Aggregate dynamics for dense crowd simulation
 # Test website
 https://kolkol69.github.io/
 
+# Dev repo
+https://github.com/kolkol69/crowd-simulation
+
 # Start
 To start simply open the .html file
 
