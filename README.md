@@ -31,3 +31,6 @@ To make agents look more like a crowd without grouping set Neighbour Radius smal
 7. Weight Minimal Distance - is used to define agent behavior if two (or more) agents are too close to each other.
 8. Weight Perturbation - perturbation is added to make Agents' moving around look more _chaotic_. If an agent is in a group with other agents, this value defines how likely he will exit it. The more the values is, the more likely he will try to escape from the froup.
 9. Max Velocity - defines agents' maximum possible speed.
+10. Speed to target - defines the speed of the agents which have target. 
+11. Time to achive targets - sets timer's time, so each 3000ms(default) some agents might want to move towards the target. The rest time agents are moving rather chaotically.
+12. Chances to achive targets - defines how likely bigger amount of agents will group near defined target.
