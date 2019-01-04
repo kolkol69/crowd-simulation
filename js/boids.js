@@ -136,14 +136,15 @@ const setBoidsPosition = (boids) => {
 
 const setBoidsTargets = (boids) => {
 	for (i = 0; i < agentsAmount; i++) {
-		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // there is 33.3% chance that agent will move towards defined target
+		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
 			// console.log(i % Math.floor(Math.random() * 2) + 2)
-			const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-			const xDirection = boids[i].x - TARGET_POSITIONS[0].x > 0 ? -1 : 1;
-			const yDirection = boids[i].y - TARGET_POSITIONS[0].y > 0 ? -1 : 1;
+			// const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
+			const targetId = ~~(Math.random()*TARGET_POSITIONS.length);
+			const xDirection = boids[i].x - TARGET_POSITIONS[targetId].x > 0 ? -1 : 1;
+			const yDirection = boids[i].y - TARGET_POSITIONS[targetId].y > 0 ? -1 : 1;
 			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
-				boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
-				boids[i].vy = yDirection * (Math.random() * speedToTarget);
+			boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
+			boids[i].vy = yDirection * (Math.random() * speedToTarget);
 			// }
 		}
 	}
@@ -170,16 +171,16 @@ const init = (scene) => {
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);
 		boids[i].y = Math.floor(Math.random() * height);
-		do{
+		do {
 			vx = Math.random() * 4.0 - 2.0;
 			vy = Math.random() * 4.0 - 2.0;
-		}while(isHittingObstacle(vx, vy))
+		} while (isHittingObstacle(vx, vy))
 		boids[i].vx = vx;
 		boids[i].vy = vy;
 	}
 	setInterval(() => {
 		setBoidsTargets(boids);
-	},timeToTarget);
+	}, timeToTarget);
 }
 
 function start() {
