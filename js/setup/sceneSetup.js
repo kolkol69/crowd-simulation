@@ -6,26 +6,30 @@ const createAgentMeshes = (scene) => {
             width: WIDTH,
             depth: DEPTH
         }, scene);
-        agents[i].position.y = HEIGHT/2;
+        agents[i].position.y = HEIGHT / 2;
     }
     return agents;
 }
 
-// const createTouristPlaces = (scene) => {
-//     const place = BABYLON.MeshBuilder.CreateBox("", {
-//         height: HEIGHT*2,
-//         width: OBSTACLE_POSITIONS[0].width,
-//         depth: OBSTACLE_POSITIONS[0].depth
-//     }, scene);
-//     place.position.y = HEIGHT;
-//     place.position.x = OBSTACLE_POSITIONS[0].x;
-//     place.position.z = OBSTACLE_POSITIONS[0].y;
-// }
+const createTargets = (scene) => {
+    TARGET_POSITIONS.forEach((obstacle) => {
+        const place = BABYLON.MeshBuilder.CreateSphere("", {
+            diameter: HEIGHT,
+        }, scene);
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(1, 0, 1);
+        
+        place.position.y = HEIGHT / 2;
+        place.position.x = obstacle.x;
+        place.position.z = obstacle.y;
+        place.material = myMaterial;
+    });
+}
 
 const createTouristPlaces = (scene) => {
-    OBSTACLE_POSITIONS.forEach((obstacle)=>{
+    OBSTACLE_POSITIONS.forEach((obstacle) => {
         const place = BABYLON.MeshBuilder.CreateBox("", {
-            height: HEIGHT*2,
+            height: HEIGHT * 2,
             width: obstacle.width,
             depth: obstacle.depth
         }, scene);
@@ -34,8 +38,6 @@ const createTouristPlaces = (scene) => {
         place.position.z = obstacle.y;
     });
 }
-
-
 
 const removeAgentMeshes = () => {
     for (let i = 0; i < agents.length; i++) {

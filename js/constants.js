@@ -59,40 +59,39 @@ let chanceToGetToTarget = 3; // example: 100 / 3 ~~ 33.3%
 ##########################
 */
 
-const OBSTACLE_POSITIONS = [
-    // {
-    //         x: 310,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     }, {
-    //         x: 270,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     },
-    //     {
-    //         x: 150,
-    //         y: 70,
-    //         width: 100,
-    //         depth: 10,
-    //     }, {
-    //         x: 60,
-    //         y: 150,
-    //         width: 50,
-    //         depth: 100,
-    //     }, {
-    //         x: 290,
-    //         y: 300,
-    //         width: 50,
-    //         depth: 10,
-    //     }, 
-    {
-        x: 300,
+const OBSTACLE_POSITIONS = [{
+        x: 310,
         y: 200,
-        width: 10,
+        width: 20,
+        depth: 150,
+    }, {
+        x: 270,
+        y: 200,
+        width: 20,
+        depth: 150,
+    },
+    {
+        x: 150,
+        y: 70,
+        width: 100,
         depth: 10,
-    }
+    }, {
+        x: 60,
+        y: 150,
+        width: 50,
+        depth: 100,
+    }, {
+        x: 290,
+        y: 300,
+        width: 50,
+        depth: 10,
+    },
+    // {
+    //     x: 300,
+    //     y: 200,
+    //     width: 10,
+    //     depth: 10,
+    // }
 ]
 const TARGET_POSITIONS = [
     // {

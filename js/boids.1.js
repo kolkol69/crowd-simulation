@@ -61,7 +61,6 @@ function modify_speed_and_direction() {
 					 */
 					boids[i].vx += (weightNeighbourDistance / boids[i].num) * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
 					boids[i].vy += (weightNeighbourDistance / boids[i].num) * (((boids[j].y - boids[i].y) * (dist - boids[i].mean_d)) / dist);
-
 				} else //neighbours are too close
 				{
 					boids[i].vx -= (weightMinimalDistance / boids[i].num) * ((((boids[j].x - boids[i].x) * (minDistance)) / dist) - (boids[j].x - boids[i].x));
@@ -82,11 +81,12 @@ function modify_speed_and_direction() {
 function move_and_display() {
 	//first modify speed and direction
 	modify_speed_and_direction();
+
 	for (i = 0; i < agents.length; i++) {
 		const boid_next_pos_x = boids[i].x + boids[i].vx;
 		const boid_next_pos_y = boids[i].y + boids[i].vy;
 		// check if hitting the obstacles
-		if (isHittingObstacle(boid_next_pos_x, boid_next_pos_y)) {
+		if(isHittingObstacle(boid_next_pos_x, boid_next_pos_y)){
 			// console.log('x,y:\n', boids[i].vy, boids[i].vx);
 			boids[i].vx = (weightPerturbation * ((Math.random() - 0.5) * maxVelocity));
 			boids[i].vy = (weightPerturbation * ((Math.random() - 0.5) * maxVelocity));
@@ -134,21 +134,6 @@ const setBoidsPosition = (boids) => {
 	}
 }
 
-const setBoidsTargets = (boids) => {
-	for (i = 0; i < agentsAmount; i++) {
-		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // there is 33.3% chance that agent will move towards defined target
-			// console.log(i % Math.floor(Math.random() * 2) + 2)
-			const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-			const xDirection = boids[i].x - TARGET_POSITIONS[0].x > 0 ? -1 : 1;
-			const yDirection = boids[i].y - TARGET_POSITIONS[0].y > 0 ? -1 : 1;
-			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
-				boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
-				boids[i].vy = yDirection * (Math.random() * speedToTarget);
-			// }
-		}
-	}
-}
-
 function createMoreMeshes(agents) {
 	for (let i = agents.length - 1; i < agentsAmount - 1; i++) {
 		agents.push(BABYLON.MeshBuilder.CreateBox("", {
@@ -165,21 +150,12 @@ const init = (scene) => {
 	agents = createAgentMeshes(scene);
 	boids = new Array(agentsAmount);
 	for (i = 0; i < agentsAmount; i++) {
-		let vx;
-		let vy;
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);
 		boids[i].y = Math.floor(Math.random() * height);
-		do{
-			vx = Math.random() * 4.0 - 2.0;
-			vy = Math.random() * 4.0 - 2.0;
-		}while(isHittingObstacle(vx, vy))
-		boids[i].vx = vx;
-		boids[i].vy = vy;
+		boids[i].vx = Math.random() * 4.0 - 2.0;
+		boids[i].vy = Math.random() * 4.0 - 2.0;
 	}
-	setInterval(() => {
-		setBoidsTargets(boids);
-	},timeToTarget);
 }
 
 function start() {
