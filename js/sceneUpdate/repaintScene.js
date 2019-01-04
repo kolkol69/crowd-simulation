@@ -8,9 +8,11 @@ function repaint_scene() {
         createGround(scene);
         createTouristPlaces(scene);
         createTargets(scene);
-        init(scene);
+        resetTimers();
 
         return scene;
     };
+    
     scene = createScene();
+    start();
 };
