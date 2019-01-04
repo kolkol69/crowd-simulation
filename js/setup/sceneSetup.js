@@ -21,7 +21,9 @@ const createTargets = (scene) => {
 
         // drag'n'drop START
 
-        var pointerDragBehavior = new BABYLON.PointerDragBehavior({dragPlaneNormal: new BABYLON.Vector3(0,1,0)});
+        var pointerDragBehavior = new BABYLON.PointerDragBehavior({
+            dragPlaneNormal: new BABYLON.Vector3(0, 1, 0)
+        });
 
         // Use drag plane in world space
         pointerDragBehavior.useObjectOrienationForDragging = false;
@@ -38,14 +40,17 @@ const createTargets = (scene) => {
         pointerDragBehavior.onDragEndObservable.add((event) => {
             // console.log("dragEnd");
             // console.log('id:', place.id, '\nevent:\n',event);
-            TARGET_POSITIONS[place.id] = {x: event.dragPlanePoint.x, y: event.dragPlanePoint.z, }
+            TARGET_POSITIONS[place.id] = {
+                x: event.dragPlanePoint.x,
+                y: event.dragPlanePoint.z,
+            }
         })
 
         place.addBehavior(pointerDragBehavior);
 
         // drag'n'drop END
 
-        place.position.y = HEIGHT / 2;
+        place.position.y = HEIGHT * 2;
         place.position.x = obstacle.x;
         place.position.z = obstacle.y;
         place.material = myMaterial;
@@ -53,7 +58,19 @@ const createTargets = (scene) => {
 }
 
 const createTouristPlaces = (scene) => {
+    
     OBSTACLE_POSITIONS.forEach((obstacle) => {
+        var textureResolution = 1024;
+        var textureGround = new BABYLON.DynamicTexture("dynamic texture", {width:1024, height:512}, scene);   
+        var textureContext = textureGround.getContext();
+        
+        var materialGround = new BABYLON.StandardMaterial("Mat", scene);    				
+        materialGround.diffuseTexture = textureGround;
+        
+        //Add text to dynamic texture
+        var font = "bold 104px monospace";
+        textureGround.drawText(obstacle.name, 75, 155, font, "black", "white", true, true);
+
         const place = BABYLON.MeshBuilder.CreateBox("", {
             height: HEIGHT * 2,
             width: obstacle.width,
@@ -62,7 +79,14 @@ const createTouristPlaces = (scene) => {
         place.position.y = HEIGHT;
         place.position.x = obstacle.x;
         place.position.z = obstacle.y;
+        place.rotation.y = obstacle.rotation;
+        place.material = materialGround;
     });
+}
+
+const resetTimers = () => {
+    clearInterval(intervalID);
+    cancelAnimationFrame(animationID);
 }
 
 const removeAgentMeshes = () => {
