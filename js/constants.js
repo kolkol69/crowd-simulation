@@ -93,7 +93,7 @@ const OBSTACLE_POSITIONS = [{
     //     depth: 10,
     // }
 ]
-const TARGET_POSITIONS = [
+let TARGET_POSITIONS = [
     // {
     //         x: 310,
     //         y: 200,
@@ -122,9 +122,11 @@ const TARGET_POSITIONS = [
     //         depth: 10,
     //     }, 
     {
-        x: 300,
+        x: 290,
         y: 200,
-        width: 10,
-        depth: 10,
+
+    },{
+        x: 200,
+        y: 300,
     }
 ]
