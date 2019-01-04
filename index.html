@@ -22,18 +22,18 @@
     <div class="side-panel">
         <form name="params" action="" method="GET">
             <div>
-                <div class="setting-name">
+                <!-- <div class="setting-name">
                     <div>Agents:&nbsp;</div>
                     <div id='agents-amount-div'></div>
                 </div>
                 <input id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
-                    max="100" value="100">
+                    max="500" value="500">
                 <div class="setting-name">
                     <div>Neighbour Radius:&nbsp;</div>
                     <div id='neighbour-radius-div'></div>
                 </div>
                 <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                    min="1" max="100" value="11">
+                    min="1" max="100" value="11"> -->
                 <div class="setting-name">
                     <div>Observable Degree:&nbsp;</div>
                     <div id='observe-degree-div'></div>
@@ -103,8 +103,8 @@
 </body>
 <script src="./js/constants.js"></script>
 <script>
-    const agentsAmountDiv = document.getElementById('agents-amount-div');
-    const neighbourRadiusDiv = document.getElementById('neighbour-radius-div');
+    // const agentsAmountDiv = document.getElementById('agents-amount-div');
+    // const neighbourRadiusDiv = document.getElementById('neighbour-radius-div');
     const observeDegreeDiv = document.getElementById('observe-degree-div');
     const minDistanceDiv = document.getElementById('min-distance-div');
     const weightNeighbourVelocityDiv = document.getElementById('weight-neighbour-velocity-div');
@@ -116,13 +116,13 @@
     const timeToTargetDiv = document.getElementById('time-to-target-div');
     const chanceToGetToTargetDiv = document.getElementById('chance-to-target-div');
 
-    function onAgentsChange() {
-        agentsAmountDiv.innerHTML = document.params.agentsAmount.value;
-    };
+    // function onAgentsChange() {
+    //     agentsAmountDiv.innerHTML = document.params.agentsAmount.value;
+    // };
 
-    function onNeighbourRadiusChange() {
-        neighbourRadiusDiv.innerHTML = document.params.neighbourRadius.value;
-    };
+    // function onNeighbourRadiusChange() {
+    //     neighbourRadiusDiv.innerHTML = document.params.neighbourRadius.value;
+    // };
 
     function onObserveDegreeChange() {
         observeDegreeDiv.innerHTML = document.params.observeDegree.value;
@@ -167,8 +167,8 @@
         init function call 
         to show start data in html 
     */
-    onAgentsChange(agentsAmountDiv);
-    onNeighbourRadiusChange(neighbourRadiusDiv);
+    // onAgentsChange(agentsAmountDiv);
+    // onNeighbourRadiusChange(neighbourRadiusDiv);
     onObserveDegreeChange(observeDegreeDiv);
     onMinDistanceChange(minDistanceDiv);
     onWeightNeighbourVelocityChange(weightNeighbourVelocityDiv);

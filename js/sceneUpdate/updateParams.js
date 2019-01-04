@@ -1,6 +1,7 @@
 function update_params() {
-    agentsAmount = document.params.agentsAmount.value;
-    neighbourRadius = document.params.neighbourRadius.value;
+    // resetTimers();
+    // agentsAmount = document.params.agentsAmount.value;
+    // neighbourRadius = document.params.neighbourRadius.value;
     observeDegree = document.params.observeDegree.value;
     minDistance = document.params.minDistance.value;
     weightNeighbourVelocity = document.params.weightNeighbourVelocity.value;
