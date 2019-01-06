@@ -26,14 +26,14 @@
                     <div>Agents:&nbsp;</div>
                     <div id='agents-amount-div'></div>
                 </div>
-                <!-- <input id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
-                    max="500" value="500"> -->
+                <input disabled id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
+                    max="500" value="500">
                 <div class="setting-name">
                     <div>Neighbour Radius:&nbsp;</div>
                     <div id='neighbour-radius-div'></div>
                 </div>
-                <!-- <input id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                    min="1" max="100" value="11"> -->
+                <input disabled id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
+                    min="1" max="100" value="11">
                 <div class="setting-name">
                     <div>Observable Degree:&nbsp;</div>
                     <div id='observe-degree-div'></div>
@@ -81,19 +81,19 @@
                     <div id='speed-to-target-div'></div>
                 </div>
                 <input id='speed-to-target-input' onchange="onSpeedToTarget()" type="range" name="speedToTarget" min="1"
-                    max="5" value="1" step="0.5">
+                    max="5" value="2" step="0.5">
                 <div class="setting-name">
-                    <div>Time to achive targets:&nbsp;</div>
+                    <div>Time to achive targets(in ms):&nbsp;</div>
                     <div id='time-to-target-div'></div>
                 </div>
                 <input id='time-to-target-input' onchange="onTimeToTarget()" type="range" name="timeToTarget" min="1000"
-                    max="5000" value="3000" step="1000">
+                    max="5000" value="2000" step="1000">
                 <div class="setting-name">
                     <div>Chances to achive targets:&nbsp;</div>
                     <div id='chance-to-target-div'></div>
                 </div>
                 <input id='chance-to-target-input' onchange="onChanceToTarget()" type="range" name="chanceToGetToTarget"
-                    min="1" max="10" value="3" step="1">
+                    min="1" max="10" value="2" step="1">
             </div>
 
             <input class="buttons update-button" type="button" value="Update" onClick="update_scene();">
@@ -103,8 +103,8 @@
 </body>
 <script src="./js/constants.js"></script>
 <script>
-    // const agentsAmountDiv = document.getElementById('agents-amount-div');
-    // const neighbourRadiusDiv = document.getElementById('neighbour-radius-div');
+    const agentsAmountDiv = document.getElementById('agents-amount-div');
+    const neighbourRadiusDiv = document.getElementById('neighbour-radius-div');
     const observeDegreeDiv = document.getElementById('observe-degree-div');
     const minDistanceDiv = document.getElementById('min-distance-div');
     const weightNeighbourVelocityDiv = document.getElementById('weight-neighbour-velocity-div');
@@ -116,13 +116,13 @@
     const timeToTargetDiv = document.getElementById('time-to-target-div');
     const chanceToGetToTargetDiv = document.getElementById('chance-to-target-div');
 
-    // function onAgentsChange() {
-    //     agentsAmountDiv.innerHTML = document.params.agentsAmount.value;
-    // };
+    function onAgentsChange() {
+        agentsAmountDiv.innerHTML = document.params.agentsAmount.value;
+    };
 
-    // function onNeighbourRadiusChange() {
-    //     neighbourRadiusDiv.innerHTML = document.params.neighbourRadius.value;
-    // };
+    function onNeighbourRadiusChange() {
+        neighbourRadiusDiv.innerHTML = document.params.neighbourRadius.value;
+    };
 
     function onObserveDegreeChange() {
         observeDegreeDiv.innerHTML = document.params.observeDegree.value;
@@ -167,8 +167,8 @@
         init function call 
         to show start data in html 
     */
-    // onAgentsChange(agentsAmountDiv);
-    // onNeighbourRadiusChange(neighbourRadiusDiv);
+    onAgentsChange(agentsAmountDiv);
+    onNeighbourRadiusChange(neighbourRadiusDiv);
     onObserveDegreeChange(observeDegreeDiv);
     onMinDistanceChange(minDistanceDiv);
     onWeightNeighbourVelocityChange(weightNeighbourVelocityDiv);
