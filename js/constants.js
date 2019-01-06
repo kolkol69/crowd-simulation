@@ -1,3 +1,5 @@
+let intervalID;
+let animationID;
 /* 
 ########################
 ## AGENTS' DIMENSIONS ##
@@ -13,13 +15,13 @@ const DEPTH = 3;
 ####################
 */
 // ground params
-const GROUND_WIDTH = 600;
-const GROUND_HEIGHT = 400;
+const GROUND_WIDTH = 800;
+const GROUND_HEIGHT = 500;
 const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
 // camera params
 const CAMERA_ANGLE = 1.57;
-const CAMERA_ZOOM = 500;
+const CAMERA_ZOOM = 1000;
 const CAMERA_POS_X = INIT_POS_X;
 const CAMERA_POS_Y = INIT_POS_Z;
 const CAMERA_VIEW_TYPE = -1; // 1 - normal view; -1 - from the top view
@@ -30,13 +32,13 @@ const CAMERA_VIEW_TYPE = -1; // 1 - normal view; -1 - from the top view
 #######################
 */
 // agent amount
-let agentsAmount = 100;
+let agentsAmount = 500;
 // Promień sąsiedztwa
-let neighbourRadius = 11.0;
+let neighbourRadius = 8.0;
 // Kąt obserwacji
 let observDegree = 120.0;
 // Odleglosc minimalna
-let minDistance = 11.0;
+let minDistance = 8.0;
 // Waga prędkości sąsiadów
 let weightNeighbourVelocity = 0.1;
 // Waga odległości sąsiadów
@@ -60,32 +62,46 @@ let chanceToGetToTarget = 3; // example: 100 / 3 ~~ 33.3%
 */
 
 const OBSTACLE_POSITIONS = [{
-        x: 310,
-        y: 200,
-        width: 20,
-        depth: 150,
-    }, {
-        x: 270,
-        y: 200,
-        width: 20,
-        depth: 150,
+        // SUKIENNICE
+        name: "sukiennice",
+        x: 400,
+        y: 220,
+        width: 50,
+        depth: 190,
+        rotation: 0,
     },
     {
-        x: 150,
-        y: 70,
-        width: 100,
-        depth: 10,
-    }, {
+        // KOSCIOL SWIETEGO WOJCECHA
+        name: "Kosciol Swietego Wojcecha",
+        x: 520,
+        y: 100,
+        width: 25,
+        depth: 25,
+        rotation: 30,
+    },
+    {
+        // WIEZA RATUSZOWA
+        name: "Wieza Ratuszowa",
+        x: 320,
+        y: 125,
+        width: 25,
+        depth: 25,
+        rotation: 0,
+    },
+    {
+        name:'Pomnik Adama Mickiewicza',
         x: 60,
         y: 150,
-        width: 50,
-        depth: 100,
-    }, {
-        x: 290,
-        y: 300,
-        width: 50,
-        depth: 10,
+        width: 15,
+        depth: 15,
+        rotation: 0,
     },
+    // {
+    //     x: 290,
+    //     y: 300,
+    //     width: 50,
+    //     depth: 10,
+    // },
     // {
     //     x: 300,
     //     y: 200,
@@ -125,8 +141,11 @@ let TARGET_POSITIONS = [
         x: 290,
         y: 200,
 
-    },{
+    }, {
         x: 200,
+        y: 300,
+    }, {
+        x: 250,
         y: 300,
     }
 ]
