@@ -2,7 +2,6 @@ var boids;
 var agents = new Array(agentsAmount);
 var globalScene;
 var globalGrid;
-var squareSize = 15;
 
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
@@ -18,7 +17,7 @@ function modify_speed_and_direction() {
 		boids[i].mean_d = 0;
 		boids[i].num = 1;
 		for (j = 0; j < agentsAmount; j++) {
-			if (j == i) continue;
+			if (j === i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
 				boids[i].vx / Math.sqrt(boids[i].vx * boids[i].vx + boids[i].vy * boids[i].vy) *
@@ -46,7 +45,7 @@ function modify_speed_and_direction() {
 
 		if (boids[i].num > 1) boids[i].mean_d /= (boids[i].num - 1);
 		for (j = 0; j < agentsAmount; j++) {
-			if (j == i) continue;
+			if (j === i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
 				boids[i].vx / Math.sqrt(boids[i].vx * boids[i].vx + boids[i].vy * boids[i].vy) *
@@ -128,20 +127,20 @@ const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
 }
 
 const isBoidInsideSquare = () => {
-    for(let boid of boids) {
+    for(let i=0; i< boids.length; i++){
         dance:
-            for(let square of globalGrid){
-                if(boid.x >= square.position.x && boid.x <= square.position.x + squareSize && boid.y >= square.position.z && boid.y <= square.position.z + squareSize){
+            for(let j=0; j<globalGrid.length; j++){
+                if(boids[i].x >= globalGrid[j].position.x && boids[i].x <= globalGrid[j].position.x + SQUARE_SIZE && boids[i].y >= globalGrid[i].position.z && boids[i].y <= globalGrid[j].position.z + SQUARE_SIZE){
                     const myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
-                    let r = square.material.diffuseColor.r;
+                    let r = globalGrid[j].material.diffuseColor.r;
 					r = r + 0.03;
                     myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
-                    square.material = myMaterial
+                    globalGrid[j].material = myMaterial;
                     break dance;
                 }
             }
     }
-};
+}
 
 const setBoidsPosition = (boids) => {
 

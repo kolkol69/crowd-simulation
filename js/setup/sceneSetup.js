@@ -1,12 +1,15 @@
 const createAgentMeshes = (scene) => {
     const agents = new Array(agentsAmount)
-    for (let i = 0; i < agentsAmount; i++) {
-        agents[i] = BABYLON.MeshBuilder.CreateBox("", {
-            height: HEIGHT,
-            width: WIDTH,
-            depth: DEPTH,
-        }, scene);
-        agents[i].position.y = HEIGHT / 2;
+
+    agents[0] = BABYLON.MeshBuilder.CreateBox("", {
+        height: HEIGHT,
+        width: WIDTH,
+        depth: DEPTH,
+    }, scene);
+    agents[0].position.y = HEIGHT / 2;
+
+    for (let i = 1; i < agentsAmount; i++) { //klonowanie/instancjonowanie podobno zwieksza wydajnosc
+        agents[i] = agents[0].createInstance("index: " + i);
     }
     return agents;
 }

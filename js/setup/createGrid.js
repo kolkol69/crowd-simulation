@@ -2,25 +2,28 @@ const createGrid = (scene) => {
     const myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
     myMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
 
-    let squareSize = 15;
-    let squaresAmount = Math.floor((GROUND_HEIGHT * GROUND_WIDTH) / (squareSize * squareSize));
+    let squaresAmount = Math.floor((GROUND_HEIGHT * GROUND_WIDTH) / (SQUARE_SIZE * SQUARE_SIZE));
 
 
     const grid = [];
 
-    console.log(squaresAmount)
+    const square = BABYLON.MeshBuilder.CreateBox(`x`, {
+        size: SQUARE_SIZE,
+        height: 1
+    }, scene);
+
     let yCounter = 0;
     for (let i = 0; i < squaresAmount; i++) {
-        const square = BABYLON.MeshBuilder.CreateBox(`x`, {
-            size: squareSize,
-            height: 1
-        }, scene);
-        i % Math.floor((GROUND_WIDTH / squareSize)) === 0 ? yCounter++ : yCounter = yCounter;
+
+        i % Math.floor((GROUND_WIDTH / SQUARE_SIZE)) === 0 ? yCounter++ : yCounter = yCounter;
         square.position.y = 0.5;
-        square.position.x = i % Math.floor((GROUND_WIDTH / squareSize)) * squareSize;
-        square.position.z = yCounter * squareSize;
+        square.position.x = i % Math.floor((GROUND_WIDTH / SQUARE_SIZE)) * SQUARE_SIZE;
+        square.position.z = yCounter * SQUARE_SIZE;
         square.material = myMaterial;
-        grid.push(square);
+
+        let newClone = square.clone("index: " + i);
+        grid.push(newClone);
+
     }
 
     return grid;

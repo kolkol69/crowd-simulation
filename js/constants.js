@@ -17,6 +17,7 @@ const GROUND_WIDTH = 600;
 const GROUND_HEIGHT = 400;
 const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
+const SQUARE_SIZE = 10;
 // camera params
 const CAMERA_ANGLE = 1.57;
 const CAMERA_ZOOM = 500;
