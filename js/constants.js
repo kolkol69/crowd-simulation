@@ -21,7 +21,7 @@ const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
 // camera params
 const CAMERA_ANGLE = 1.57;
-const CAMERA_ZOOM = 700;
+const CAMERA_ZOOM = 1000;
 const CAMERA_POS_X = INIT_POS_X;
 const CAMERA_POS_Y = INIT_POS_Z;
 const CAMERA_VIEW_TYPE = -1; // 1 - normal view; -1 - from the top view
@@ -62,8 +62,7 @@ let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3%
 */
 
 const OBSTACLE_POSITIONS = [{
-        // SUKIENNICE
-        name: "sukiennice",
+        name: "Sukiennice",
         x: 400,
         y: 220,
         width: 50,
@@ -71,7 +70,6 @@ const OBSTACLE_POSITIONS = [{
         rotation: 0,
     },
     {
-        // KOSCIOL SWIETEGO WOJCECHA
         name: "Kosciol Swietego Wojcecha",
         x: 520,
         y: 100,
@@ -80,7 +78,6 @@ const OBSTACLE_POSITIONS = [{
         rotation: 30,
     },
     {
-        // WIEZA RATUSZOWA
         name: "Wieza Ratuszowa",
         x: 320,
         y: 125,
@@ -103,6 +100,54 @@ const OBSTACLE_POSITIONS = [{
         width: 100,
         depth: 50,
         rotation: 15,
+    },
+    {
+        name: 'Muzeum Historyczne',
+        x: 180,
+        y: 300,
+        width: 130,
+        depth: 130,
+        rotation: 0,
+    },
+    {
+        name: 'Domek',
+        x: 180,
+        y: 150,
+        width: 130,
+        depth: 130,
+        rotation: 0.05,
+    },
+    {
+        name: 'Maly rynek 1',
+        x: 785,
+        y: 360,
+        width: 30,
+        depth: 130,
+        rotation: 0,
+    },
+    {
+        name: '',
+        x: 640,
+        y: 305,
+        width: 85,
+        depth: 20,
+        rotation: 0,
+    },
+    {
+        name: 'Maly rynek 2',
+        x: 700,
+        y: 360,
+        width: 30,
+        depth: 130,
+        rotation: 0,
+    },
+    {
+        name: 'Kamienica Hipolitow',
+        x: 760,
+        y: 470,
+        width: 80,
+        depth: 60,
+        rotation: 0,
     },
 ]
 let TARGET_POSITIONS = [{
