@@ -21,7 +21,7 @@ const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
 // camera params
 const CAMERA_ANGLE = 1.57;
-const CAMERA_ZOOM = 1000;
+const CAMERA_ZOOM = 700;
 const CAMERA_POS_X = INIT_POS_X;
 const CAMERA_POS_Y = INIT_POS_Z;
 const CAMERA_VIEW_TYPE = -1; // 1 - normal view; -1 - from the top view
@@ -89,27 +89,33 @@ const OBSTACLE_POSITIONS = [{
         rotation: 0,
     },
     {
-        name:'Pomnik Adama Mickiewicza',
-        x: 60,
-        y: 150,
+        name: 'Pomnik Adama Mickiewicza',
+        x: 510,
+        y: 233,
         width: 15,
         depth: 15,
         rotation: 0,
     },
-    // {
-    //     x: 290,
-    //     y: 300,
-    //     width: 50,
-    //     depth: 10,
-    // },
-    // {
-    //     x: 300,
-    //     y: 200,
-    //     width: 10,
-    //     depth: 10,
-    // }
+    {
+        name: 'Bazylia Mariacka',
+        x: 620,
+        y: 373,
+        width: 100,
+        depth: 50,
+        rotation: 15,
+    },
 ]
-let TARGET_POSITIONS = [
+let TARGET_POSITIONS = [{
+        x: 710,
+        y: 416,
+
+    }, {
+        x: 380,
+        y: 432,
+    }, {
+        x: 110,
+        y: 40,
+    }
     // {
     //         x: 310,
     //         y: 200,
@@ -137,15 +143,4 @@ let TARGET_POSITIONS = [
     //         width: 50,
     //         depth: 10,
     //     }, 
-    {
-        x: 710,
-        y: 416,
-
-    }, {
-        x: 380,
-        y: 432,
-    }, {
-        x: 110,
-        y: 40,
-    }
 ]
