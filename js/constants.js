@@ -21,10 +21,10 @@ const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
 // camera params
 const CAMERA_ANGLE = 1.57;
-const CAMERA_ZOOM = 1000;
+const CAMERA_ZOOM = 700;
 const CAMERA_POS_X = INIT_POS_X;
 const CAMERA_POS_Y = INIT_POS_Z;
-const CAMERA_VIEW_TYPE = -1; // 1 - normal view; -1 - from the top view
+const CAMERA_VIEW_TYPE = 1; // 1 - normal view; -1 - from the top view
 
 /* 
 #######################
