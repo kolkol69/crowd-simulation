@@ -111,7 +111,7 @@ function move_and_display() {
 	}
 
 	setBoidsPosition(boids);
-	window.requestAnimationFrame(move_and_display);
+	animationID = requestAnimationFrame(move_and_display);
 }
 
 const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
@@ -139,7 +139,7 @@ const setBoidsTargets = (boids) => {
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
 			// console.log(i % Math.floor(Math.random() * 2) + 2)
 			// const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-			const targetId = ~~(Math.random()*TARGET_POSITIONS.length);
+			const targetId = ~~(Math.random() * TARGET_POSITIONS.length);
 			const xDirection = boids[i].x - TARGET_POSITIONS[targetId].x > 0 ? -1 : 1;
 			const yDirection = boids[i].y - TARGET_POSITIONS[targetId].y > 0 ? -1 : 1;
 			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
@@ -178,12 +178,12 @@ const init = (scene) => {
 		boids[i].vx = vx;
 		boids[i].vy = vy;
 	}
-	setInterval(() => {
+	intervalID = setInterval(() => {
 		setBoidsTargets(boids);
 	}, timeToTarget);
 }
 
 function start() {
 	init();
-	window.requestAnimationFrame(move_and_display);
+	move_and_display();
 }
