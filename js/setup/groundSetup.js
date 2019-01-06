@@ -12,4 +12,5 @@ const createGround = (scene) => {
 
     ground.position.x = INIT_POS_X;
     ground.position.z = INIT_POS_Z;
+
 }

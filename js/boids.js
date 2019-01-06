@@ -1,5 +1,8 @@
 var boids;
 var agents = new Array(agentsAmount);
+var globalScene;
+var globalGrid;
+var squareSize = 15;
 
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
@@ -124,7 +127,24 @@ const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
 	return false;
 }
 
+const isBoidInsideSquare = () => {
+    for(let boid of boids) {
+        dance:
+            for(let square of globalGrid){
+                if(boid.x >= square.position.x && boid.x <= square.position.x + squareSize && boid.y >= square.position.z && boid.y <= square.position.z + squareSize){
+                    const myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
+                    let r = square.material.diffuseColor.r;
+					r = r + 0.03;
+                    myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
+                    square.material = myMaterial
+                    break dance;
+                }
+            }
+    }
+};
+
 const setBoidsPosition = (boids) => {
+
 	if (agentsAmount > agents.length) {
 		createMoreMeshes(agents);
 	}
@@ -132,6 +152,8 @@ const setBoidsPosition = (boids) => {
 		agents[i].position.x = boids[i].x;
 		agents[i].position.z = boids[i].y;
 	}
+
+
 }
 
 const setBoidsTargets = (boids) => {
@@ -183,7 +205,10 @@ const init = (scene) => {
 	}, timeToTarget);
 }
 
-function start() {
+function start(scene, grid) {
+	globalScene = scene;
+	globalGrid = grid;
+	setInterval(isBoidInsideSquare, 500)
 	init();
 	window.requestAnimationFrame(move_and_display);
 }

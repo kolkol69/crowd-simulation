@@ -196,13 +196,13 @@
             createGround(scene);
             createTouristPlaces(scene);
             createTargets(scene);
-
             agents = createAgentMeshes(scene);
 
             return scene;
         };
         scene = createScene();
-        start();
+        const grid = createGrid(scene);
+        start(scene, grid);
         engine.runRenderLoop(function () {
             scene.render();
         });
@@ -213,6 +213,7 @@
 </script>
 <script src="./js/boids.js"></script>
 <script src="./js/setup/sceneSetup.js"></script>
+<script src="./js/setup/createGrid.js"></script>
 <script src="./js/setup/cameraSetup.js"></script>
 <script src="./js/setup/lightSetup.js"></script>
 <script src="./js/setup/groundSetup.js"></script>

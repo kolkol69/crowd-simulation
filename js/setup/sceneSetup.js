@@ -4,7 +4,7 @@ const createAgentMeshes = (scene) => {
         agents[i] = BABYLON.MeshBuilder.CreateBox("", {
             height: HEIGHT,
             width: WIDTH,
-            depth: DEPTH
+            depth: DEPTH,
         }, scene);
         agents[i].position.y = HEIGHT / 2;
     }
