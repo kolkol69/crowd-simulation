@@ -1,12 +1,17 @@
 const createAgentMeshes = (scene) => {
     const agents = new Array(agentsAmount)
     for (let i = 0; i < agentsAmount; i++) {
+
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+
         agents[i] = BABYLON.MeshBuilder.CreateBox("", {
             height: HEIGHT,
             width: WIDTH,
             depth: DEPTH
         }, scene);
         agents[i].position.y = HEIGHT / 2;
+        agents[i].material = myMaterial;
     }
     return agents;
 }
@@ -39,7 +44,7 @@ const createTargets = (scene) => {
         })
         pointerDragBehavior.onDragEndObservable.add((event) => {
             // console.log("dragEnd");
-            // console.log('id:', place.id, '\nevent:\n',event);
+            console.log('id:', place.id, '\nevent:\n',event);
             TARGET_POSITIONS[place.id] = {
                 x: event.dragPlanePoint.x,
                 y: event.dragPlanePoint.z,
