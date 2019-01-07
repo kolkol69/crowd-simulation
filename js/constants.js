@@ -55,6 +55,10 @@ let speedToTarget = 2.0;
 let timeToTarget = 2000; // time in ms
 // defines how likely most of the agents will get to the target
 let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3%
+// defines how likely most of the agents will leave the target
+let chanceToLeaveTarget = 3; // example: 100 / 3 ~~ 33.3%
+//the lower the number the more the boid is biased towards going to it's current target: 1 -> no bias, 0 -> infinite bias
+let currentTargetPriority = 0.8;
 /* 
 ##########################
 ### OBSTACLE POSITIONS ###
@@ -150,16 +154,34 @@ const OBSTACLE_POSITIONS = [{
         rotation: 0,
     },
 ]
+
+// if depth is equal to 0 then the target is circle and width is radius
+
+
 let TARGET_POSITIONS = [{
         x: 710,
         y: 416,
+        width: 20,
+        depth: 20,
+        rotation: 0,
+        attraction_range: 50,
 
     }, {
         x: 380,
         y: 432,
+        width: 20,
+        depth: 20,
+        rotation: 0,
+        attraction_range: 50,
+
     }, {
         x: 110,
         y: 40,
+        width: 20,
+        depth: 20,
+        rotation: 0,
+        attraction_range: 50,
+
     }
     // {
     //         x: 310,
