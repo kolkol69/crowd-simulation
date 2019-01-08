@@ -99,7 +99,8 @@ const OBSTACLE_POSITIONS = [{
         y: 373,
         width: 100,
         depth: 50,
-        rotation: 15,
+        // rotation: 15,
+        rotation: 0,
     },
     {
         name: 'Muzeum Historyczne',
