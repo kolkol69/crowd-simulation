@@ -54,7 +54,11 @@ let speedToTarget = 2.0;
 // defines how fast agents will get to the target
 let timeToTarget = 2000; // time in ms
 // defines how likely most of the agents will get to the target
-let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3%
+let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3% => 0 === 100%
+// defines how likely most of the agents will leave the target
+let chanceToLeaveTarget = 10; // example: 100 / 3 ~~ 33.3%
+//the lower the number the more the boid is biased towards going to it's current target: 1 -> no bias, 0 -> infinite bias
+let currentTargetPriority = 0.8;
 /* 
 ##########################
 ### OBSTACLE POSITIONS ###
@@ -99,7 +103,6 @@ const OBSTACLE_POSITIONS = [{
         y: 373,
         width: 100,
         depth: 50,
-        // rotation: 15,
         rotation: 0,
     },
     {
@@ -151,42 +154,72 @@ const OBSTACLE_POSITIONS = [{
         rotation: 0,
     },
 ]
-let TARGET_POSITIONS = [{
-        x: 710,
-        y: 416,
 
-    }, {
-        x: 380,
-        y: 432,
-    }, {
-        x: 110,
-        y: 40,
-    }
-    // {
-    //         x: 310,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     }, {
-    //         x: 270,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     },
-    //     {
-    //         x: 150,
-    //         y: 70,
-    //         width: 100,
-    //         depth: 10,
-    //     }, {
-    //         x: 60,
-    //         y: 150,
-    //         width: 50,
-    //         depth: 100,
-    //     }, {
-    //         x: 290,
-    //         y: 300,
-    //         width: 50,
-    //         depth: 10,
-    //     }, 
+// if depth is equal to 0 then the target is circle and width is radius
+
+
+let TARGET_POSITIONS = [{
+        name: "Sukiennice",
+        x: 400,
+        y: 220,
+        width: 70,
+        depth: 210,
+        rotation: 0,
+        attraction_range: 100,
+    },
+    {
+        name: "Kosciol Swietego Wojcecha",
+        x: 520,
+        y: 100,
+        width: 45,
+        depth: 45,
+        rotation: 30,
+        attraction_range: 100,
+    },
+    {
+        name: "Wieza Ratuszowa",
+        x: 320,
+        y: 125,
+        width: 45,
+        depth: 45,
+        rotation: 0,
+        attraction_range: 100,
+    },
+    {
+        name: 'Pomnik Adama Mickiewicza',
+        x: 510,
+        y: 233,
+        width: 65,
+        depth: 0,
+        rotation: 0,
+        attraction_range: 50,
+    },
+    {
+        name: 'Bazylia Mariacka',
+        x: 620,
+        y: 373,
+        width: 120,
+        depth: 80,
+        rotation: 15,
+        attraction_range: 150,
+    },
+    {
+        name: 'Muzeum Historyczne',
+        x: 180,
+        y: 300,
+        width: 150,
+        depth: 150,
+        rotation: 0,
+        attraction_range: 100,
+    },
+
+    {
+        name: 'Kamienica Hipolitow',
+        x: 760,
+        y: 470,
+        width: 100,
+        depth: 80,
+        rotation: 0,
+        attraction_range: 100,
+    },
 ]
