@@ -4,7 +4,7 @@ var agents = new Array(agentsAmount);
 const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
 
-//calculate new speed and direction
+// calculate new speed and direction
 function modify_speed_and_direction() {
 	let dist = 0.0;
 	let deg = 0.0;
@@ -14,7 +14,7 @@ function modify_speed_and_direction() {
 		boids[i].mean_vy = boids[i].vy;
 		boids[i].mean_d = 0;
 		boids[i].num = 1;
-		for (j = 0; j < agentsAmount; j++) {
+		for (j = 0; j < agentsAmount; j++) {a
 			if (j == i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
@@ -78,7 +78,7 @@ function modify_speed_and_direction() {
 	}
 }
 
-//move and display boids
+// move and display boids
 function move_and_display() {
 	//first modify speed and direction
 	modify_speed_and_direction();
@@ -92,22 +92,23 @@ function move_and_display() {
 			boids[i].vy = (weightPerturbation * ((Math.random() - 0.5) * maxVelocity));
 		}
 
-		//move boid
+		// move boid
 		boids[i].x += boids[i].vx;
 		boids[i].y += boids[i].vy;
 
-		//check if outside window
+		// check if outside window
 		if (boids[i].x > width) boids[i].x -= width;
 		else if (boids[i].x < 0) boids[i].x += width;
 		if (boids[i].y > height) boids[i].y -= height;
 		else if (boids[i].y < 0) boids[i].y += height;
 
-		//display new position of boid
+		// display new position of boid
 		if (boids[i].vx < 0) {
 			boids[i].rotate = 90.0 + Math.atan(boids[i].vy / boids[i].vx) * 180.0 / Math.PI;
 		} else {
 			boids[i].rotate = -90.0 + Math.atan(boids[i].vy / boids[i].vx) * 180.0 / Math.PI;
 		}
+
 	}
 
 	setBoidsPosition(boids);
@@ -134,20 +135,68 @@ const setBoidsPosition = (boids) => {
 	}
 }
 
+const getDistance = (x1, x2, y1, y2) => {
+	return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+}
+
 const setBoidsTargets = (boids) => {
 	for (i = 0; i < agentsAmount; i++) {
+		boids[i].current_target_id = getNextTarget(boids[i]);
+
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
-			// console.log(i % Math.floor(Math.random() * 2) + 2)
-			// const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-			const targetId = ~~(Math.random() * TARGET_POSITIONS.length);
-			const xDirection = boids[i].x - TARGET_POSITIONS[targetId].x > 0 ? -1 : 1;
-			const yDirection = boids[i].y - TARGET_POSITIONS[targetId].y > 0 ? -1 : 1;
-			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
-			boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
-			boids[i].vy = yDirection * (Math.random() * speedToTarget);
-			// }
+			if (boids[i].current_target_id == -1) {
+				let targetId;
+				do {
+					targetId = ~~(Math.random() * TARGET_POSITIONS.length);
+				} while (boids[i].recently_visited_target_id.indexOf(targetId) !== -1);
+				setBoidSpeed(boids[i], targetId);
+			} else {
+				console.log('id:', boids[i].current_target_id, '>>>> ', TARGET_POSITIONS[boids[i].current_target_id]);
+				setBoidSpeed(boids[i], boids[i].current_target_id);
+			}
 		}
 	}
+}
+
+const setBoidSpeed = (boid, id) => {
+	const xDirection = boid.x - TARGET_POSITIONS[id].x > 0 ? -1 : 1;
+	const yDirection = boid.y - TARGET_POSITIONS[id].y > 0 ? -1 : 1;
+
+	boid.vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
+	boid.vy = yDirection * (Math.random() * speedToTarget);
+}
+
+const getNextTarget = (boid) => {
+	console.log('Visited places: ', ...boid.recently_visited_target_id);
+
+	const amountOfTargets = TARGET_POSITIONS.length;
+	const targetDistances = TARGET_POSITIONS.map(_target => ~~getDistance(boid.x, _target.x, boid.y, _target.y) - _target.attraction_range);
+	let target;
+	let targetsAchieved = 0;
+
+	// find next POI
+	do {
+		targetID = targetDistances.indexOf(Math.min(...targetDistances)) + targetsAchieved;
+		target = TARGET_POSITIONS[targetID];
+		++targetsAchieved;
+	} while (boid.recently_visited_target_id.indexOf(targetID) !== -1 && targetsAchieved < amountOfTargets);
+
+	if (boid.recently_visited_target_id.length === amountOfTargets) {
+		console.log('%c >>> ALL TARGETS ACHIEVED <<<', 'background: #222; color: #b70037');
+		boid.recently_visited_target_id = [];
+		return -1;
+	}
+
+	const distanceToTarget = getDistance(boid.x, target.x, boid.y, target.y) - target.attraction_range;
+	const isMovingToTarget = distanceToTarget > 0;
+	const isNotAlreadyVisited = boid.recently_visited_target_id.indexOf(targetID) === -1;
+
+	// Target achived and can be added to "visited"
+	if (!isMovingToTarget && isNotAlreadyVisited) {
+		boid.recently_visited_target_id.push(targetID);
+	}
+
+	return targetID;
 }
 
 function createMoreMeshes(agents) {
@@ -165,9 +214,9 @@ function createMoreMeshes(agents) {
 const init = (scene) => {
 	agents = createAgentMeshes(scene);
 	boids = new Array(agentsAmount);
+	let vx;
+	let vy;
 	for (i = 0; i < agentsAmount; i++) {
-		let vx;
-		let vy;
 		boids[i] = {};
 		boids[i].x = Math.floor(Math.random() * width);
 		boids[i].y = Math.floor(Math.random() * height);
@@ -177,6 +226,10 @@ const init = (scene) => {
 		} while (isHittingObstacle(vx, vy))
 		boids[i].vx = vx;
 		boids[i].vy = vy;
+
+		boids[i].recently_visited_target_id = [];
+		boids[i].current_target_id = ~~(Math.random() * TARGET_POSITIONS.length);
+
 	}
 	intervalID = setInterval(() => {
 		setBoidsTargets(boids);
