@@ -14,7 +14,7 @@ function modify_speed_and_direction() {
 		boids[i].mean_vy = boids[i].vy;
 		boids[i].mean_d = 0;
 		boids[i].num = 1;
-		for (j = 0; j < agentsAmount; j++) {a
+		for (j = 0; j < agentsAmount; j++) {
 			if (j == i) continue;
 			dist = Math.sqrt(Math.pow(boids[i].x - boids[j].x, 2) + Math.pow(boids[i].y - boids[j].y, 2));
 			deg = Math.acos(
@@ -117,8 +117,8 @@ function move_and_display() {
 
 const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
 	for (let i = 0; i < OBSTACLE_POSITIONS.length; i++) {
-		if ((boid_next_pos_x >= OBSTACLE_POSITIONS[i].x - OBSTACLE_POSITIONS[i].width / 2 && boid_next_pos_x <= OBSTACLE_POSITIONS[i].x + OBSTACLE_POSITIONS[i].width / 2) &&
-			(boid_next_pos_y >= OBSTACLE_POSITIONS[i].y - OBSTACLE_POSITIONS[i].depth / 2 && boid_next_pos_y <= OBSTACLE_POSITIONS[i].y + OBSTACLE_POSITIONS[i].depth / 2)) {
+		if ((boid_next_pos_x + WIDTH > OBSTACLE_POSITIONS[i].x - OBSTACLE_POSITIONS[i].width / 2 && boid_next_pos_x - WIDTH < OBSTACLE_POSITIONS[i].x + OBSTACLE_POSITIONS[i].width / 2) &&
+			(boid_next_pos_y + WIDTH > OBSTACLE_POSITIONS[i].y - OBSTACLE_POSITIONS[i].depth / 2 && boid_next_pos_y - WIDTH < OBSTACLE_POSITIONS[i].y + OBSTACLE_POSITIONS[i].depth / 2)) {
 			return true;
 		}
 	}
@@ -141,7 +141,7 @@ const getDistance = (x1, x2, y1, y2) => {
 
 const setBoidsTargets = (boids) => {
 	for (i = 0; i < agentsAmount; i++) {
-		boids[i].current_target_id = getNextTarget(boids[i]);
+		boids[i].current_target_id = getNextTarget(boids[i], i);
 
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
 			if (boids[i].current_target_id == -1) {
@@ -151,7 +151,7 @@ const setBoidsTargets = (boids) => {
 				} while (boids[i].recently_visited_target_id.indexOf(targetId) !== -1);
 				setBoidSpeed(boids[i], targetId);
 			} else {
-				console.log('id:', boids[i].current_target_id, '>>>> ', TARGET_POSITIONS[boids[i].current_target_id]);
+				// console.log('id:', boids[i].current_target_id, '>>>> ', TARGET_POSITIONS[boids[i].current_target_id]);
 				setBoidSpeed(boids[i], boids[i].current_target_id);
 			}
 		}
@@ -166,33 +166,33 @@ const setBoidSpeed = (boid, id) => {
 	boid.vy = yDirection * (Math.random() * speedToTarget);
 }
 
-const getNextTarget = (boid) => {
-	console.log('Visited places: ', ...boid.recently_visited_target_id);
-
+const getNextTarget = (boid, index) => {
+	// FINISH
 	const amountOfTargets = TARGET_POSITIONS.length;
-	const targetDistances = TARGET_POSITIONS.map(_target => ~~getDistance(boid.x, _target.x, boid.y, _target.y) - _target.attraction_range);
-	let target;
-	let targetsAchieved = 0;
-
-	// find next POI
-	do {
-		targetID = targetDistances.indexOf(Math.min(...targetDistances)) + targetsAchieved;
-		target = TARGET_POSITIONS[targetID];
-		++targetsAchieved;
-	} while (boid.recently_visited_target_id.indexOf(targetID) !== -1 && targetsAchieved < amountOfTargets);
-
 	if (boid.recently_visited_target_id.length === amountOfTargets) {
 		console.log('%c >>> ALL TARGETS ACHIEVED <<<', 'background: #222; color: #b70037');
+		agents[index].material.diffuseColor = new BABYLON.Color3(1, 0, 0);
 		boid.recently_visited_target_id = [];
 		return -1;
 	}
 
-	const distanceToTarget = getDistance(boid.x, target.x, boid.y, target.y) - target.attraction_range;
-	const isMovingToTarget = distanceToTarget > 0;
+	const targetDistances = TARGET_POSITIONS.map(_target => ~~getDistance(boid.x, _target.x, boid.y, _target.y) - _target.attraction_range);
+	// console.log('Visited places: ', ...boid.recently_visited_target_id);
+
+	let targetDistancesFiltered = TARGET_POSITIONS.map((_target, index) => {
+		if (boid.recently_visited_target_id.indexOf(index) === -1) {
+			return ~~getDistance(boid.x, _target.x, boid.y, _target.y) - _target.attraction_range;
+		}
+	}).filter(el => typeof el !== 'undefined');
+
+	targetID = targetDistances.indexOf(Math.min(...targetDistancesFiltered));
+
+	const distanceToTarget = getDistance(boid.x, TARGET_POSITIONS[targetID].x, boid.y, TARGET_POSITIONS[targetID].y) - TARGET_POSITIONS[targetID].attraction_range;
+	const isMovingToTarget = distanceToTarget < 0;
 	const isNotAlreadyVisited = boid.recently_visited_target_id.indexOf(targetID) === -1;
 
 	// Target achived and can be added to "visited"
-	if (!isMovingToTarget && isNotAlreadyVisited) {
+	if (isMovingToTarget && isNotAlreadyVisited) {
 		boid.recently_visited_target_id.push(targetID);
 	}
 
