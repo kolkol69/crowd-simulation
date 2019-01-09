@@ -167,8 +167,10 @@ const setBoidSpeed = (boid, id) => {
 }
 
 const getNextTarget = (boid, index) => {
-	// FINISH
+	// console.log('Visited places: ', ...boid.recently_visited_target_id);
+	
 	const amountOfTargets = TARGET_POSITIONS.length;
+	// FINISH
 	if (boid.recently_visited_target_id.length === amountOfTargets) {
 		console.log('%c >>> ALL TARGETS ACHIEVED <<<', 'background: #222; color: #b70037');
 		agents[index].material.diffuseColor = new BABYLON.Color3(1, 0, 0);
@@ -177,7 +179,6 @@ const getNextTarget = (boid, index) => {
 	}
 
 	const targetDistances = TARGET_POSITIONS.map(_target => ~~getDistance(boid.x, _target.x, boid.y, _target.y) - _target.attraction_range);
-	// console.log('Visited places: ', ...boid.recently_visited_target_id);
 
 	let targetDistancesFiltered = TARGET_POSITIONS.map((_target, index) => {
 		if (boid.recently_visited_target_id.indexOf(index) === -1) {

@@ -173,7 +173,7 @@ let TARGET_POSITIONS = [{
         y: 100,
         width: 45,
         depth: 45,
-        rotation: 30,
+        rotation: 0,
         attraction_range: 100,
     },
     {
@@ -200,7 +200,7 @@ let TARGET_POSITIONS = [{
         y: 373,
         width: 120,
         depth: 80,
-        rotation: 15,
+        rotation: 0,
         attraction_range: 150,
     },
     {
