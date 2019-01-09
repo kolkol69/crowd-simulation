@@ -50,7 +50,7 @@ let weightPerturbation = 0.1;
 // Prędkość maksymalna
 let maxVelocity = 1.0;
 // defines how fast agents move towards the target
-let speedToTarget = 2.0;
+let speedToTarget = 1.0;
 // defines how fast agents will get to the target
 let timeToTarget = 2000; // time in ms
 // defines how likely most of the agents will get to the target
