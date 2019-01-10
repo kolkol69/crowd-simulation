@@ -128,11 +128,11 @@ const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
 }
 
 const isBoidInsideSquare = () => {
+    let myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
     for(let i=0; i< boids.length; i++){
         dance:
             for(let j=0; j<globalGrid.length; j++){
                 if(boids[i].x >= globalGrid[j].position.x && boids[i].x <= globalGrid[j].position.x + SQUARE_SIZE && boids[i].y >= globalGrid[i].position.z && boids[i].y <= globalGrid[j].position.z + SQUARE_SIZE){
-                    const myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
                     let r = globalGrid[j].material.diffuseColor.r;
 					r = r + 0.005;
                     myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
@@ -144,10 +144,10 @@ const isBoidInsideSquare = () => {
 }
 
 const fadeSquare = () => {
-    const myMaterial = new BABYLON.StandardMaterial("myMaterial1", globalScene);
     for(let j=0; j<globalGrid.length; j++){
-            let r = globalGrid[j].material.diffuseColor.r;
-            r = r - 0.001;
+        let myMaterial = new BABYLON.StandardMaterial("myMaterial1", globalScene);
+        let r = globalGrid[j].material.diffuseColor.r;
+            r = r - 0.003;
             myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
             globalGrid[j].material = myMaterial;
     }
@@ -272,7 +272,7 @@ function start(scene, grid) {
 	globalScene = scene;
 	globalGrid = grid;
 	setInterval(isBoidInsideSquare, 500);
-	//setInterval(fadeSquare, 14000);
+	setInterval(fadeSquare, 4000);
 	init();
 	move_and_display();
 }
