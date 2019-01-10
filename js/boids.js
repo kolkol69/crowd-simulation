@@ -116,7 +116,8 @@ function move_and_display() {
                 boids[i].recently_visited_target_id = area;
             }*/
             boids[i].recently_visited_target_id = area;
-            //console.log("odwiedzony:" + area);
+			//console.log("odwiedzony:" + area);
+			boids[i].preferences[area] = 1;
         }
 	}
 
@@ -187,9 +188,9 @@ const setBoidsTargets = (boids) => {
         //if (prev_target != boids[i].current_target_id) console.log("target changed: " + prev_target +" to " +  boids[i].current_target_id);
         //else console.log("target not changed" + boids[i].current_target_id);
         //boids[i].current_target_id = getNextTarget(boids[i].x, boids[i].y, boids[i].recently_visited_target_id, boids[i].current_target_id);
-
+		console.log(boids[i].preferences);
         if (boids[i].current_target_id == -1) {
-            //console.log("bez celu");
+            console.log("bez celu");
             if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
                 // console.log(i % Math.floor(Math.random() * 2) + 2)
                 // const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
@@ -208,7 +209,7 @@ const setBoidsTargets = (boids) => {
             }
         }
         else {
-            //console.log(boids[i].current_target_id);
+            console.log(boids[i].current_target_id);
             const xDirection = boids[i].x - TARGET_POSITIONS[boids[i].current_target_id].x > 0 ? -1 : 1;
             const yDirection = boids[i].y - TARGET_POSITIONS[boids[i].current_target_id].y > 0 ? -1 : 1;
             // if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
@@ -227,7 +228,7 @@ const getNextTarget = (boid) => {
     //gets first proper target to compare others to
     let startingIndex = 0;
     while (getDistance(boid.x, TARGET_POSITIONS[startingIndex].x, boid.y, TARGET_POSITIONS[startingIndex].y) > TARGET_POSITIONS[startingIndex].attraction_range ||
-        startingIndex == boid.recently_visited_target_id){
+        boid.preferences[startingIndex] == 1){
         startingIndex = startingIndex + 1;
         if (startingIndex == TARGET_POSITIONS.length) return -1;
     }
@@ -237,7 +238,7 @@ const getNextTarget = (boid) => {
     if (targetId == boid.current_target_id) currdist = currdist * currentTargetPriority;
 
     for (let j = startingIndex + 1; j < TARGET_POSITIONS.lenght; j++) {
-        if (j != boid.recently_visited_target_id) {
+        if (boid.preferences[startingIndex] < 1) {
             let dist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
             if (dist <= TARGET_POSITIONS[j].attraction_range) {
                 if (j == boid.current_target_id) dist = dist * currentTargetPriority;
@@ -304,7 +305,8 @@ const init = (scene) => {
         }
         boids[i].current_target_id = targetId;
         */
-        boids[i].current_target_id =  ~~(Math.random() * (TARGET_POSITIONS.length + 1)) - 1;
+		boids[i].current_target_id =  ~~(Math.random() * (TARGET_POSITIONS.length + 1)) - 1;
+		boids[i].preferences = new Array(TARGET_POSITIONS.length).fill(0);
         //console.log(boids[i].current_target_id);
         //let dist = getDistance(boids[i].x, boids[i].y, TARGET_POSITIONS[0].x, TARGET_POSITIONS[0].y);
         //if (dist < 200) { boids[i].current_target_id = 0; }

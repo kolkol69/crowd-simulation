@@ -103,7 +103,7 @@ const OBSTACLE_POSITIONS = [{
         y: 373,
         width: 100,
         depth: 50,
-        rotation: 15,
+        rotation: 0,
     },
     {
         name: 'Muzeum Historyczne',
@@ -119,7 +119,7 @@ const OBSTACLE_POSITIONS = [{
         y: 150,
         width: 130,
         depth: 130,
-        rotation: 0.05,
+        rotation: 0,
     },
     {
         name: 'Maly rynek 1',
@@ -214,8 +214,8 @@ let TARGET_POSITIONS = [/*{
         name: 'Pomnik Adama Mickiewicza',
         x: 510,
         y: 233,
-        width: 65,
-        depth: 0,
+        width: 30,
+        depth: 30,
         rotation: 0,
         attraction_range: 200,
     },
@@ -225,7 +225,7 @@ let TARGET_POSITIONS = [/*{
         y: 373,
         width: 120,
         depth: 80,
-        rotation: 15,
+        rotation: 0,
         attraction_range: 350,
     },
     {
