@@ -107,18 +107,19 @@ function move_and_display() {
 			boids[i].rotate = 90.0 + Math.atan(boids[i].vy / boids[i].vx) * 180.0 / Math.PI;
 		} else {
 			boids[i].rotate = -90.0 + Math.atan(boids[i].vy / boids[i].vx) * 180.0 / Math.PI;
-        }
+		}
 
-        
-        let area = isWithinTargetArea(boids[i].x, boids[i].y)
-        if (area != -1) {/*
-            if (~~(Math.random() * chanceToLeaveTarget) == 0) {
-                boids[i].recently_visited_target_id = area;
-            }*/
-            boids[i].recently_visited_target_id = area;
+
+		let area = isWithinTargetArea(boids[i].x, boids[i].y)
+		if (area != -1) {
+			/*
+			            if (~~(Math.random() * chanceToLeaveTarget) == 0) {
+			                boids[i].recently_visited_target_id = area;
+			            }*/
+			boids[i].recently_visited_target_id = area;
 			//console.log("odwiedzony:" + area);
 			boids[i].preferences[area] = 1;
-        }
+		}
 	}
 
 	setBoidsPosition(boids);
@@ -136,17 +137,17 @@ const isHittingObstacle = (boid_next_pos_x, boid_next_pos_y) => {
 }
 
 const isWithinTargetArea = (boid_x, boid_y) => {
-    for (let i = 0; i < TARGET_POSITIONS.length; i++) {
-        if (TARGET_POSITIONS[i].depth == 0) {
-            let dist = getDistance(boid_x, TARGET_POSITIONS[i].x, boid_y, TARGET_POSITIONS[i].y);
-            if (dist < width) return i;
-        }
-        if ((boid_x >= TARGET_POSITIONS[i].x - TARGET_POSITIONS[i].width / 2 && boid_x <= TARGET_POSITIONS[i].x + TARGET_POSITIONS[i].width / 2) &&
-            (boid_y >= TARGET_POSITIONS[i].y - TARGET_POSITIONS[i].depth / 2 && boid_y <= TARGET_POSITIONS[i].y + TARGET_POSITIONS[i].depth / 2)) {
-            return i;
-        }
-    }
-    return -1;
+	for (let i = 0; i < TARGET_POSITIONS.length; i++) {
+		if (TARGET_POSITIONS[i].depth == 0) {
+			let dist = getDistance(boid_x, TARGET_POSITIONS[i].x, boid_y, TARGET_POSITIONS[i].y);
+			if (dist < width) return i;
+		}
+		if ((boid_x >= TARGET_POSITIONS[i].x - TARGET_POSITIONS[i].width / 2 && boid_x <= TARGET_POSITIONS[i].x + TARGET_POSITIONS[i].width / 2) &&
+			(boid_y >= TARGET_POSITIONS[i].y - TARGET_POSITIONS[i].depth / 2 && boid_y <= TARGET_POSITIONS[i].y + TARGET_POSITIONS[i].depth / 2)) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 const setBoidsPosition = (boids) => {
@@ -160,13 +161,14 @@ const setBoidsPosition = (boids) => {
 }
 
 const getDistance = (x1, x2, y1, y2) => {
-    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+	return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
 
 const setBoidsTargets = (boids) => {
-    for (i = 0; i < agentsAmount; i++) {
-        /*
+	for (i = 0; i < agentsAmount; i++) {
+
+		/*
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
 			// console.log(i % Math.floor(Math.random() * 2) + 2)
 			// const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
@@ -179,78 +181,86 @@ const setBoidsTargets = (boids) => {
 			// }
             */
 
-        //console.log(isWithinTargetArea(boids[i].x, boids[i].y));
+		//console.log(isWithinTargetArea(boids[i].x, boids[i].y));
 
-        //let prev_target = boids[i].current_target_id;
+		//let prev_target = boids[i].current_target_id;
 
-        boids[i].current_target_id = getNextTarget(boids[i]);
+		boids[i].current_target_id = getNextTarget(boids[i]);
 
-        //if (prev_target != boids[i].current_target_id) console.log("target changed: " + prev_target +" to " +  boids[i].current_target_id);
-        //else console.log("target not changed" + boids[i].current_target_id);
-        //boids[i].current_target_id = getNextTarget(boids[i].x, boids[i].y, boids[i].recently_visited_target_id, boids[i].current_target_id);
-		console.log(boids[i].preferences);
-        if (boids[i].current_target_id == -1) {
-            console.log("bez celu");
-            if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
-                // console.log(i % Math.floor(Math.random() * 2) + 2)
-                // const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
-                //const targetId = ~~(Math.random() * TARGET_POSITIONS.length);
-                let targetId;
-                do { targetId = ~~(Math.random() * TARGET_POSITIONS.length); } while (targetId == boids[i].recently_visited_target_id);
-                const xDirection = boids[i].x - TARGET_POSITIONS[targetId].x > 0 ? -1 : 1;
-                const yDirection = boids[i].y - TARGET_POSITIONS[targetId].y > 0 ? -1 : 1;
+		//if (prev_target != boids[i].current_target_id) console.log("target changed: " + prev_target +" to " +  boids[i].current_target_id);
+		//else console.log("target not changed" + boids[i].current_target_id);
+		//boids[i].current_target_id = getNextTarget(boids[i].x, boids[i].y, boids[i].recently_visited_target_id, boids[i].current_target_id);
+		// console.log(boids[i].preferences);
+		if (boids[i].current_target_id == -1) {
+			// console.log("bez celu");
+			const myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+			myMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+			agents[i].material = myMaterial;
+			if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
+				// console.log(i % Math.floor(Math.random() * 2) + 2)
+				// const diagonal = Math.sqrt(Math.pow((boids[i].x - TARGET_POSITIONS[0].x), 2) + Math.pow((boids[i].y - TARGET_POSITIONS[0].y), 2)); //d^2 = (x0-xt)^2 + (y0-yt)^2 => d = sqrt((x0-xt)^2 + (y0-yt)^2)
+				//const targetId = ~~(Math.random() * TARGET_POSITIONS.length);
+				let targetId;
+				do {
+					targetId = ~~(Math.random() * TARGET_POSITIONS.length);
+				} while (targetId == boids[i].recently_visited_target_id);
+				const xDirection = boids[i].x - TARGET_POSITIONS[targetId].x > 0 ? -1 : 1;
+				const yDirection = boids[i].y - TARGET_POSITIONS[targetId].y > 0 ? -1 : 1;
 
-                
 
-                // if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
-                boids[i].vx = xDirection * (Math.random() * speedToTarget ); // maxVelocity
-                boids[i].vy = yDirection * (Math.random() * speedToTarget );
-                // }
-            }
-        }
-        else {
-            console.log(boids[i].current_target_id);
-            const xDirection = boids[i].x - TARGET_POSITIONS[boids[i].current_target_id].x > 0 ? -1 : 1;
-            const yDirection = boids[i].y - TARGET_POSITIONS[boids[i].current_target_id].y > 0 ? -1 : 1;
-            // if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
-            boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
-            boids[i].vy = yDirection * (Math.random() * speedToTarget);
-                // }
-            
-        }
+
+				// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
+				boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
+				boids[i].vy = yDirection * (Math.random() * speedToTarget);
+				// }
+			}
+		} else {
+			const myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+			myMaterial.diffuseColor = new BABYLON.Color3(1, 0, 0);
+			agents[i].material = myMaterial;
+
+			// console.log(boids[i].current_target_id);
+			const xDirection = boids[i].x - TARGET_POSITIONS[boids[i].current_target_id].x > 0 ? -1 : 1;
+			const yDirection = boids[i].y - TARGET_POSITIONS[boids[i].current_target_id].y > 0 ? -1 : 1;
+			// if (Math.pow(boids[i].x, 2) + Math.pow(boids[i].y, 2) - diagonal != 100) {
+			boids[i].vx = xDirection * (Math.random() * speedToTarget); // maxVelocity
+			boids[i].vy = yDirection * (Math.random() * speedToTarget);
+			// }
+
+		}
 	}
 }
 
 
 
-const getNextTarget = (boid) => {  
+const getNextTarget = (boid) => {
 
-    //gets first proper target to compare others to
-    let startingIndex = 0;
-    while (getDistance(boid.x, TARGET_POSITIONS[startingIndex].x, boid.y, TARGET_POSITIONS[startingIndex].y) > TARGET_POSITIONS[startingIndex].attraction_range ||
-        boid.preferences[startingIndex] == 1){
-        startingIndex = startingIndex + 1;
-        if (startingIndex == TARGET_POSITIONS.length) return -1;
-    }
+	//gets first proper target to compare others to
+	let startingIndex = 0;
+	while (getDistance(boid.x, TARGET_POSITIONS[startingIndex].x, boid.y, TARGET_POSITIONS[startingIndex].y) > TARGET_POSITIONS[startingIndex].attraction_range ||
+		boid.preferences[startingIndex] == 1) {
+		startingIndex = startingIndex + 1;
+		if (startingIndex == TARGET_POSITIONS.length) return -1;
+	}
 
-    let targetId = startingIndex;
-    let currdist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
-    if (targetId == boid.current_target_id) currdist = currdist * currentTargetPriority;
+	let targetId = startingIndex;
+	let currdist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
+	if (targetId == boid.current_target_id) currdist = currdist * currentTargetPriority;
 	currdist = currdist * boid.preferences[j];
-    for (let j = startingIndex + 1; j < TARGET_POSITIONS.lenght; j++) {
-        if (boid.preferences[startingIndex] < 1) {
-            let dist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
-            if (dist <= TARGET_POSITIONS[j].attraction_range) {
+	for (let j = startingIndex + 1; j < TARGET_POSITIONS.lenght; j++) {
+		if (boid.preferences[startingIndex] < 1) {
+			let dist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
+			if (dist <= TARGET_POSITIONS[j].attraction_range) {
 				if (j == boid.current_target_id) dist = dist * currentTargetPriority;
 				dist = dist * boid.preferences[j];
-                if (dist < currdist) {
-                    currdist = dist;
-                    targetId = j;
-                }
-            }
-        }
-    }
-    return targetId;
+				if (dist < currdist) {
+					currdist = dist;
+					targetId = j;
+				}
+			}
+		}
+	}
+	return targetId;
 }
 
 
@@ -283,34 +293,34 @@ const init = (scene) => {
 			vy = Math.random() * 4.0 - 2.0;
 		} while (isHittingObstacle(vx, vy))
 		boids[i].vx = vx;
-        boids[i].vy = vy;
+		boids[i].vy = vy;
 
-        boids[i].recently_visited_target_id = -1;
-        /*
-        let targetId = 0;//~~(Math.random() * TARGET_POSITIONS.length);
-        let x1 = boids[i].x;
-        let y1 = boids[i].y;
-        let x2 = TARGET_POSITIONS[0].x;
-        let y2 = TARGET_POSITIONS[0].y;
-        let currdist = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-        for (let j = 1; j < TARGET_POSITIONS.lenght; j++) {
-            x1 = boids[i].x;
-            y1 = boids[i].y;
-            x2 = TARGET_POSITIONS[j].x;
-            y2 = TARGET_POSITIONS[j].y;
-            let dist = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-            if (dist < currdist) {
-                currdist = dist;
-                targetId = j;
-            }
-        }
-        boids[i].current_target_id = targetId;
-        */
-		boids[i].current_target_id =  ~~(Math.random() * (TARGET_POSITIONS.length + 1)) - 1;
+		boids[i].recently_visited_target_id = -1;
+		/*
+		let targetId = 0;//~~(Math.random() * TARGET_POSITIONS.length);
+		let x1 = boids[i].x;
+		let y1 = boids[i].y;
+		let x2 = TARGET_POSITIONS[0].x;
+		let y2 = TARGET_POSITIONS[0].y;
+		let currdist = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		for (let j = 1; j < TARGET_POSITIONS.lenght; j++) {
+		    x1 = boids[i].x;
+		    y1 = boids[i].y;
+		    x2 = TARGET_POSITIONS[j].x;
+		    y2 = TARGET_POSITIONS[j].y;
+		    let dist = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		    if (dist < currdist) {
+		        currdist = dist;
+		        targetId = j;
+		    }
+		}
+		boids[i].current_target_id = targetId;
+		*/
+		boids[i].current_target_id = ~~(Math.random() * (TARGET_POSITIONS.length + 1)) - 1;
 		boids[i].preferences = new Array(TARGET_POSITIONS.length).fill(Math.random());
-        //console.log(boids[i].current_target_id);
-        //let dist = getDistance(boids[i].x, boids[i].y, TARGET_POSITIONS[0].x, TARGET_POSITIONS[0].y);
-        //if (dist < 200) { boids[i].current_target_id = 0; }
+		//console.log(boids[i].current_target_id);
+		//let dist = getDistance(boids[i].x, boids[i].y, TARGET_POSITIONS[0].x, TARGET_POSITIONS[0].y);
+		//if (dist < 200) { boids[i].current_target_id = 0; }
 
 	}
 	intervalID = setInterval(() => {

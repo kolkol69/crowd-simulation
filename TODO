@@ -1,3 +1,1 @@
-1. export global variables;
-2. make functions to change variables values;
-3. global refactoring;
+1. agent disappears after checking all the POI

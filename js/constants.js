@@ -32,7 +32,7 @@ const CAMERA_VIEW_TYPE = 1; // 1 - normal view; -1 - from the top view
 #######################
 */
 // agent amount
-let agentsAmount = 1;
+let agentsAmount = 500;
 // Promień sąsiedztwa
 let neighbourRadius = 8.0;
 // Kąt obserwacji
