@@ -164,9 +164,24 @@ const getDistance = (x1, x2, y1, y2) => {
 	return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
+const getNumberOfBoidsInArea = (index) =>{
+	let number = 0;
+	for(i = 0; i < agents.length; i++){
+		if (TARGET_POSITIONS[index].depth == 0) {
+			let dist = getDistance(boids[i].x, TARGET_POSITIONS[index].x, boids[i].y, TARGET_POSITIONS[index].y);
+			if (dist < width) number = number +1;
+		}
+		if ((boids[i].x >= TARGET_POSITIONS[index].x - TARGET_POSITIONS[index].width / 2 && boids[i].x <= TARGET_POSITIONS[index].x + TARGET_POSITIONS[index].width / 2) &&
+			(boids[i].y >= TARGET_POSITIONS[index].y - TARGET_POSITIONS[index].depth / 2 && boids[i].y <= TARGET_POSITIONS[index].y + TARGET_POSITIONS[index].depth / 2)) {
+			number = number + 1;
+		}
+	}
+	return number;
+}
+
 
 const setBoidsTargets = (boids) => {
-	for (i = 0; i < agentsAmount; i++) {
+	for (let i = 0; i < agentsAmount; i++) {
 
 		/*
 		if (Math.floor(Math.random() * chanceToGetToTarget) == 0) { // for 3 there is 33.3% chance that agent will move towards defined target
@@ -185,6 +200,7 @@ const setBoidsTargets = (boids) => {
 
 		//let prev_target = boids[i].current_target_id;
 
+		
 		boids[i].current_target_id = getNextTarget(boids[i]);
 
 		//if (prev_target != boids[i].current_target_id) console.log("target changed: " + prev_target +" to " +  boids[i].current_target_id);
@@ -234,11 +250,11 @@ const setBoidsTargets = (boids) => {
 
 
 const getNextTarget = (boid) => {
-
+	let crowdThreshold = 50;
 	//gets first proper target to compare others to
 	let startingIndex = 0;
 	while (getDistance(boid.x, TARGET_POSITIONS[startingIndex].x, boid.y, TARGET_POSITIONS[startingIndex].y) > TARGET_POSITIONS[startingIndex].attraction_range ||
-		boid.preferences[startingIndex] == 1) {
+		boid.preferences[startingIndex] == 1 || getNumberOfBoidsInArea(startingIndex) >= crowdThreshold) {
 		startingIndex = startingIndex + 1;
 		if (startingIndex == TARGET_POSITIONS.length) return -1;
 	}
@@ -246,13 +262,14 @@ const getNextTarget = (boid) => {
 	let targetId = startingIndex;
 	let currdist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
 	if (targetId == boid.current_target_id) currdist = currdist * currentTargetPriority;
-	currdist = currdist * boid.preferences[j];
+	currdist = currdist * boid.preferences[j] * ( 0.5 + (getNumberOfBoidsInArea(startingIndex) /(2 * crowdThreshold)));
 	for (let j = startingIndex + 1; j < TARGET_POSITIONS.lenght; j++) {
 		if (boid.preferences[startingIndex] < 1) {
+			let crowd = getNumberOfBoidsInArea(j);
 			let dist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
-			if (dist <= TARGET_POSITIONS[j].attraction_range) {
+			if (dist <= TARGET_POSITIONS[j].attraction_range || crowd < crowdThreshold ) {
 				if (j == boid.current_target_id) dist = dist * currentTargetPriority;
-				dist = dist * boid.preferences[j];
+				dist = dist * boid.preferences[j] * (0.5 + (crowd /(2 * crowdThreshold)));
 				if (dist < currdist) {
 					currdist = dist;
 					targetId = j;
