@@ -134,12 +134,22 @@ const isBoidInsideSquare = () => {
                 if(boids[i].x >= globalGrid[j].position.x && boids[i].x <= globalGrid[j].position.x + SQUARE_SIZE && boids[i].y >= globalGrid[i].position.z && boids[i].y <= globalGrid[j].position.z + SQUARE_SIZE){
                     const myMaterial = new BABYLON.StandardMaterial("myMaterial", globalScene);
                     let r = globalGrid[j].material.diffuseColor.r;
-					r = r + 0.03;
+					r = r + 0.005;
                     myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
                     globalGrid[j].material = myMaterial;
                     break dance;
                 }
             }
+    }
+}
+
+const fadeSquare = () => {
+    const myMaterial = new BABYLON.StandardMaterial("myMaterial1", globalScene);
+    for(let j=0; j<globalGrid.length; j++){
+            let r = globalGrid[j].material.diffuseColor.r;
+            r = r - 0.001;
+            myMaterial.diffuseColor = new BABYLON.Color3(r, 0, 0);
+            globalGrid[j].material = myMaterial;
     }
 }
 
@@ -261,7 +271,8 @@ const init = (scene) => {
 function start(scene, grid) {
 	globalScene = scene;
 	globalGrid = grid;
-	setInterval(isBoidInsideSquare, 500)
+	setInterval(isBoidInsideSquare, 500);
+	//setInterval(fadeSquare, 14000);
 	init();
 	move_and_display();
 }
