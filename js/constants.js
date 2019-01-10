@@ -52,9 +52,9 @@ let maxVelocity = 1.0;
 // defines how fast agents move towards the target
 let speedToTarget = 1.0;
 // defines how fast agents will get to the target
-let timeToTarget = 1000; // time in ms
+let timeToTarget = 2000; // time in ms
 // defines how likely most of the agents will get to the target
-let chanceToGetToTarget = 0; // example: 100 / 3 ~~ 33.3% => 0 === 100%
+let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3% => 0 === 100%
 // defines how likely most of the agents will leave the target
 let chanceToLeaveTarget = 10; // example: 100 / 3 ~~ 33.3%
 //the lower the number the more the boid is biased towards going to it's current target: 1 -> no bias, 0 -> infinite bias
