@@ -32,7 +32,7 @@ const CAMERA_VIEW_TYPE = 1; // 1 - normal view; -1 - from the top view
 #######################
 */
 // agent amount
-let agentsAmount = 500;
+let agentsAmount = 1;
 // Promień sąsiedztwa
 let neighbourRadius = 8.0;
 // Kąt obserwacji
@@ -42,7 +42,7 @@ let minDistance = 8.0;
 // Waga prędkości sąsiadów
 let weightNeighbourVelocity = 0.1;
 // Waga odległości sąsiadów
-let weightNeighbourDistance = 0.15;
+let weightNeighbourDistance = 0.15; 
 // Waga odległości minimalnej
 let weightMinimalDistance = 0.15;
 // Waga zakłóceń

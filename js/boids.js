@@ -236,12 +236,13 @@ const getNextTarget = (boid) => {
     let targetId = startingIndex;
     let currdist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
     if (targetId == boid.current_target_id) currdist = currdist * currentTargetPriority;
-
+	currdist = currdist * boid.preferences[j];
     for (let j = startingIndex + 1; j < TARGET_POSITIONS.lenght; j++) {
         if (boid.preferences[startingIndex] < 1) {
             let dist = getDistance(boid.x, TARGET_POSITIONS[targetId].x, boid.y, TARGET_POSITIONS[targetId].y);
             if (dist <= TARGET_POSITIONS[j].attraction_range) {
-                if (j == boid.current_target_id) dist = dist * currentTargetPriority;
+				if (j == boid.current_target_id) dist = dist * currentTargetPriority;
+				dist = dist * boid.preferences[j];
                 if (dist < currdist) {
                     currdist = dist;
                     targetId = j;
@@ -306,7 +307,7 @@ const init = (scene) => {
         boids[i].current_target_id = targetId;
         */
 		boids[i].current_target_id =  ~~(Math.random() * (TARGET_POSITIONS.length + 1)) - 1;
-		boids[i].preferences = new Array(TARGET_POSITIONS.length).fill(0);
+		boids[i].preferences = new Array(TARGET_POSITIONS.length).fill(Math.random());
         //console.log(boids[i].current_target_id);
         //let dist = getDistance(boids[i].x, boids[i].y, TARGET_POSITIONS[0].x, TARGET_POSITIONS[0].y);
         //if (dist < 200) { boids[i].current_target_id = 0; }
