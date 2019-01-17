@@ -161,9 +161,6 @@ const OBSTACLE_POSITIONS = [{
     },
 ]
 
-// if depth is equal to 0 then the target is circle and width is radius
-
-
 let TARGET_POSITIONS = [{
         name: "Sukiennice",
         x: 400,
