@@ -21,10 +21,14 @@
     <canvas id="renderCanvas">
     </canvas>
     <div class="side-panel">
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
+        <div style="display: flex; justify-content:space-around; align-items: center">
+            <span id="algo_name">Text</span>
+            <label class="switch">
+                <input id="slider_algo" onclick="toggleCheckbox(this)" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+
         <form name="params" action="" method="GET">
             <div>
                 <div class="setting-name">
@@ -108,6 +112,7 @@
     </div>
 </body>
 <script src="./js/constants.js"></script>
+<script src="./js/sceneUpdate/repaintScene.js"></script>
 <script>
     const agentsAmountDiv = document.getElementById('agents-amount-div');
     const neighbourRadiusDiv = document.getElementById('neighbour-radius-div');
@@ -187,6 +192,14 @@
     onChanceToTarget(chanceToGetToTargetDiv);
 </script>
 <script>
+    document.getElementById('algo_name').innerHTML = algorythmTypes[algorythmID]
+    const toggleCheckbox = (element) => {
+        algorythmID = +element.checked;
+        document.getElementById('algo_name').innerHTML = algorythmTypes[algorythmID];
+        repaint_scene();
+    }
+</script>
+<script>
     /*  ##############################
         ## BABYLON SCENE RENDERING  ##
         ##############################
@@ -222,7 +235,6 @@
 <script src="./js/setup/cameraSetup.js"></script>
 <script src="./js/setup/lightSetup.js"></script>
 <script src="./js/setup/groundSetup.js"></script>
-<script src="./js/sceneUpdate/repaintScene.js"></script>
 <script src="./js/sceneUpdate/updateParams.js"></script>
 <script src="./js/sceneUpdate/updateScene.js"></script>
 

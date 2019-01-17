@@ -1,5 +1,11 @@
 let intervalID;
 let animationID;
+let algorythmID = 0;
+
+const algorythmTypes = {
+    '0': 'First algorythm',
+    '1': 'Second algorythm'
+}
 /* 
 ########################
 ## AGENTS' DIMENSIONS ##
