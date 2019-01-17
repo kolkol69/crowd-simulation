@@ -5,7 +5,7 @@ const width = GROUND_WIDTH;
 const height = GROUND_HEIGHT;
 
 // calculate new speed and direction
-function modify_speed_and_direction() {
+const modify_speed_and_direction = () => {
 	let dist = 0.0;
 	let deg = 0.0;
 
@@ -53,12 +53,6 @@ function modify_speed_and_direction() {
 			deg = Math.abs((180 * deg) / Math.PI);
 			if (dist < neighbourRadius && deg < observDegree) {
 				if (Math.abs(boids[j].x - boids[i].x) > minDistance) {
-					/**
-					 * boids[i].vx += 0.005 * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
-					 * czym mensza wartosc weightNeighbourDistance (0.005) tym bilshe grupujutsja agenty
-					 * ale i tym bilsh stabilno wygladaje systema
-					 * agenty ne "diorgajutsja" jaksho probujut' wyrwatysja z grupy
-					 */
 					boids[i].vx += (weightNeighbourDistance / boids[i].num) * (((boids[j].x - boids[i].x) * (dist - boids[i].mean_d)) / dist);
 					boids[i].vy += (weightNeighbourDistance / boids[i].num) * (((boids[j].y - boids[i].y) * (dist - boids[i].mean_d)) / dist);
 
@@ -79,7 +73,7 @@ function modify_speed_and_direction() {
 }
 
 // move and display boids
-function move_and_display() {
+const move_and_display = () => {
 	//first modify speed and direction
 	modify_speed_and_direction();
 	for (i = 0; i < agents.length; i++) {
@@ -151,7 +145,6 @@ const setBoidsTargets = (boids) => {
 				} while (boids[i].recently_visited_target_id.indexOf(targetId) !== -1);
 				setBoidSpeed(boids[i], targetId);
 			} else {
-				// console.log('id:', boids[i].current_target_id, '>>>> ', TARGET_POSITIONS[boids[i].current_target_id]);
 				setBoidSpeed(boids[i], boids[i].current_target_id);
 			}
 		}
@@ -167,12 +160,10 @@ const setBoidSpeed = (boid, id) => {
 }
 
 const getNextTarget = (boid, index) => {
-	// console.log('Visited places: ', ...boid.recently_visited_target_id);
-	
+
 	const amountOfTargets = TARGET_POSITIONS.length;
 	// FINISH
 	if (boid.recently_visited_target_id.length === amountOfTargets) {
-		console.log('%c >>> ALL TARGETS ACHIEVED <<<', 'background: #222; color: #b70037');
 		agents[index].material.diffuseColor = new BABYLON.Color3(1, 0, 0);
 		boid.recently_visited_target_id = [];
 		return -1;
@@ -200,7 +191,7 @@ const getNextTarget = (boid, index) => {
 	return targetID;
 }
 
-function createMoreMeshes(agents) {
+const createMoreMeshes = (agents) => {
 	for (let i = agents.length - 1; i < agentsAmount - 1; i++) {
 		agents.push(BABYLON.MeshBuilder.CreateBox("", {
 			height: 10,
@@ -212,7 +203,7 @@ function createMoreMeshes(agents) {
 }
 
 //initialize data
-const init = (scene) => {
+const initFirstAlgo = (scene) => {
 	agents = createAgentMeshes(scene);
 	boids = new Array(agentsAmount);
 	let vx;
@@ -235,9 +226,18 @@ const init = (scene) => {
 	intervalID = setInterval(() => {
 		setBoidsTargets(boids);
 	}, timeToTarget);
+	move_and_display();
 }
 
-function start() {
-	init();
-	move_and_display();
+const start = () => {
+
+	switch (algorythmID) {
+		case 0:
+			initFirstAlgo();
+			break;
+		case 1:
+			initFirstAlgo();
+			break;
+	}
+
 }
