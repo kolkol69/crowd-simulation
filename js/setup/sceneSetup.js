@@ -44,7 +44,6 @@ const createTargets = (scene) => {
         })
         pointerDragBehavior.onDragEndObservable.add((event) => {
             // console.log("dragEnd");
-            console.log('id:', place.id, '\nevent:\n',event);
             TARGET_POSITIONS[place.id] = {
                 x: event.dragPlanePoint.x,
                 y: event.dragPlanePoint.z,
@@ -62,25 +61,7 @@ const createTargets = (scene) => {
     });
 }
 
-const drawTouristPlacesPOIRadius = (scene) => {
-
-    TARGET_POSITIONS.forEach((target)=>{
-        const place = BABYLON.MeshBuilder.CreateSphere("mySphere", {diameterX: target.attraction_range, diameterZ: target.attraction_range, diameterY: 1}, scene);
-        var greenMat = new BABYLON.StandardMaterial("greenMat", scene);
-    
-        greenMat.diffuseColor = new BABYLON.Color3(0, 1, 0);
-        greenMat.alpha = 0.2;
-        
-        place.position.y = 3*HEIGHT;
-        place.position.x = target.x; // x
-        place.position.z = target.y; // y
-        place.material = greenMat;
-    });
-}
-
 const createTouristPlaces = (scene) => {
-
-    drawTouristPlacesPOIRadius(scene);
 
     OBSTACLE_POSITIONS.forEach((obstacle) => {
         var textureResolution = 1024;
