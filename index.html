@@ -14,26 +14,31 @@
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
 
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/slider.css">
 </head>
 
 <body>
     <canvas id="renderCanvas">
     </canvas>
     <div class="side-panel">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
         <form name="params" action="" method="GET">
             <div>
                 <div class="setting-name">
                     <div>Agents:&nbsp;</div>
                     <div id='agents-amount-div'></div>
                 </div>
-                <input disabled id='agents-amount-input' onchange="onAgentsChange()" type="range" name="agentsAmount" min="1"
-                    max="500" value="500">
+                <input disabled style="display:none" id='agents-amount-input' onchange="onAgentsChange()" type="range"
+                    name="agentsAmount" min="1" max="500" value="500">
                 <div class="setting-name">
                     <div>Neighbour Radius:&nbsp;</div>
                     <div id='neighbour-radius-div'></div>
                 </div>
-                <input disabled id='neighbour-radius-input' onchange="onNeighbourRadiusChange()" type="range" name="neighbourRadius"
-                    min="1" max="100" value="11">
+                <input disabled style="display:none" id='neighbour-radius-input' onchange="onNeighbourRadiusChange()"
+                    type="range" name="neighbourRadius" min="1" max="100" value="11">
                 <div class="setting-name">
                     <div>Observable Degree:&nbsp;</div>
                     <div id='observe-degree-div'></div>
@@ -89,8 +94,9 @@
                 <input id='time-to-target-input' onchange="onTimeToTarget()" type="range" name="timeToTarget" min="1000"
                     max="5000" value="2000" step="1000">
                 <div class="setting-name">
-                    <div>Chances to achive target divider: <div id='chance-to-target-div'></div></div>
-                    
+                    <div>Chances to achive target divider: <div id='chance-to-target-div'></div>
+                    </div>
+
                 </div>
                 <input id='chance-to-target-input' onchange="onChanceToTarget()" type="range" name="chanceToGetToTarget"
                     min="0" max="10" value="2" step="1">
