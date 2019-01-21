@@ -19,9 +19,10 @@ const GROUND_WIDTH = 800;
 const GROUND_HEIGHT = 500;
 const INIT_POS_X = GROUND_WIDTH / 2;
 const INIT_POS_Z = GROUND_HEIGHT / 2;
+const SQUARE_SIZE = 10;
 // camera params
 const CAMERA_ANGLE = 1.57;
-const CAMERA_ZOOM = 700;
+const CAMERA_ZOOM = 600;
 const CAMERA_POS_X = INIT_POS_X;
 const CAMERA_POS_Y = INIT_POS_Z;
 const CAMERA_VIEW_TYPE = 1; // 1 - normal view; -1 - from the top view
@@ -42,7 +43,7 @@ let minDistance = 8.0;
 // Waga prędkości sąsiadów
 let weightNeighbourVelocity = 0.1;
 // Waga odległości sąsiadów
-let weightNeighbourDistance = 0.15; 
+let weightNeighbourDistance = 0.15;
 // Waga odległości minimalnej
 let weightMinimalDistance = 0.15;
 // Waga zakłóceń
@@ -52,9 +53,9 @@ let maxVelocity = 1.0;
 // defines how fast agents move towards the target
 let speedToTarget = 1.0;
 // defines how fast agents will get to the target
-let timeToTarget = 2000; // time in ms
+let timeToTarget = 1000; // time in ms
 // defines how likely most of the agents will get to the target
-let chanceToGetToTarget = 2; // example: 100 / 3 ~~ 33.3%
+let chanceToGetToTarget = 0; // example: 100 / 3 ~~ 33.3% => 0 === 100%
 // defines how likely most of the agents will leave the target
 let chanceToLeaveTarget = 10; // example: 100 / 3 ~~ 33.3%
 //the lower the number the more the boid is biased towards going to it's current target: 1 -> no bias, 0 -> infinite bias
@@ -119,7 +120,7 @@ const OBSTACLE_POSITIONS = [{
         y: 150,
         width: 130,
         depth: 130,
-        rotation: 0,
+        rotation: 0.05,
     },
     {
         name: 'Maly rynek 1',
@@ -158,39 +159,14 @@ const OBSTACLE_POSITIONS = [{
 // if depth is equal to 0 then the target is circle and width is radius
 
 
-let TARGET_POSITIONS = [/*{ 
-        x: 710,
-        y: 416,
-        width: 30,
-        depth: 30,
-        rotation: 0,
-        attraction_range: 150,
-
-    }, {
-        x: 380,
-        y: 432,
-        width: 60,
-        depth: 60,
-        rotation: 0,
-        attraction_range: 100,
-
-    }, {
-        x: 110,
-        y: 40,
-        width: 60,
-        depth: 60,
-        rotation: 0,
-        attraction_range: 100,
-
-    }, */
-    {   
+let TARGET_POSITIONS = [{
         name: "Sukiennice",
         x: 400,
         y: 220,
         width: 70,
         depth: 210,
         rotation: 0,
-        attraction_range: 200,
+        attraction_range: 100,
     },
     {
         name: "Kosciol Swietego Wojcecha",
@@ -198,26 +174,26 @@ let TARGET_POSITIONS = [/*{
         y: 100,
         width: 45,
         depth: 45,
-        rotation: 30,
-        attraction_range: 150,
+        rotation: 0,
+        attraction_range: 100,
     },
-    {   
+    {
         name: "Wieza Ratuszowa",
         x: 320,
         y: 125,
         width: 45,
         depth: 45,
         rotation: 0,
-        attraction_range: 200,
+        attraction_range: 100,
     },
     {
         name: 'Pomnik Adama Mickiewicza',
         x: 510,
         y: 233,
-        width: 30,
-        depth: 30,
+        width: 65,
+        depth: 0,
         rotation: 0,
-        attraction_range: 200,
+        attraction_range: 50,
     },
     {
         name: 'Bazylia Mariacka',
@@ -226,7 +202,7 @@ let TARGET_POSITIONS = [/*{
         width: 120,
         depth: 80,
         rotation: 0,
-        attraction_range: 350,
+        attraction_range: 150,
     },
     {
         name: 'Muzeum Historyczne',
@@ -235,7 +211,7 @@ let TARGET_POSITIONS = [/*{
         width: 150,
         depth: 150,
         rotation: 0,
-        attraction_range: 250,
+        attraction_range: 100,
     },
 
     {
@@ -245,33 +221,6 @@ let TARGET_POSITIONS = [/*{
         width: 100,
         depth: 80,
         rotation: 0,
-        attraction_range: 150,
+        attraction_range: 100,
     },
-    // {
-    //         x: 310,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     }, {
-    //         x: 270,
-    //         y: 200,
-    //         width: 20,
-    //         depth: 150,
-    //     },
-    //     {
-    //         x: 150,
-    //         y: 70,
-    //         width: 100,
-    //         depth: 10,
-    //     }, {
-    //         x: 60,
-    //         y: 150,
-    //         width: 50,
-    //         depth: 100,
-    //     }, {
-    //         x: 290,
-    //         y: 300,
-    //         width: 50,
-    //         depth: 10,
-    //     }, 
 ]
